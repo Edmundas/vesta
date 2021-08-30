@@ -11,7 +11,7 @@ import SwiftUI
 struct VestaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TasksView(tasks: Task.data)
         }
     }
 }
