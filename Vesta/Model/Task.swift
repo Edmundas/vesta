@@ -7,17 +7,8 @@
 
 import SwiftUI
 
-struct Task: Identifiable {
-    let id: UUID = UUID()
+struct Task: Identifiable, Codable {
+    var id = UUID()
     var title: String
     var timeIntervals: [DateInterval]
-}
-
-extension Task {
-    static var data: [Task] {
-        [
-            Task(title: "First Task", timeIntervals: []),
-            Task(title: "Second Task", timeIntervals: [])
-        ]
-    }
 }

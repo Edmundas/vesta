@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188D082C26DE210900D63C7C /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D082B26DE210900D63C7C /* TasksViewModel.swift */; };
+		188D083026DE4CED00D63C7C /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D082F26DE4CED00D63C7C /* PreviewData.swift */; };
 		1893441726DCC81000604A00 /* VestaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893441626DCC81000604A00 /* VestaApp.swift */; };
 		1893441926DCC81000604A00 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893441826DCC81000604A00 /* TasksView.swift */; };
 		1893441B26DCC81200604A00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893441A26DCC81200604A00 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		188D082B26DE210900D63C7C /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
+		188D082F26DE4CED00D63C7C /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		1893441326DCC81000604A00 /* Vesta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vesta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1893441626DCC81000604A00 /* VestaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestaApp.swift; sourceTree = "<group>"; };
 		1893441826DCC81000604A00 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
@@ -39,6 +43,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		188D082D26DE4C8E00D63C7C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				188D082B26DE210900D63C7C /* TasksViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		188D082E26DE4CCD00D63C7C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				188D082F26DE4CED00D63C7C /* PreviewData.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		1893440A26DCC81000604A00 = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +81,8 @@
 				1893441626DCC81000604A00 /* VestaApp.swift */,
 				1893442526DCC89B00604A00 /* Views */,
 				1893442626DCC8A500604A00 /* Model */,
+				188D082D26DE4C8E00D63C7C /* ViewModel */,
+				188D082E26DE4CCD00D63C7C /* Resources */,
 				1893441A26DCC81200604A00 /* Assets.xcassets */,
 				1893441F26DCC81200604A00 /* Info.plist */,
 				1893441C26DCC81200604A00 /* Preview Content */,
@@ -163,9 +185,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188D082C26DE210900D63C7C /* TasksViewModel.swift in Sources */,
 				1893441926DCC81000604A00 /* TasksView.swift in Sources */,
 				1893442F26DD271C00604A00 /* AddTaskView.swift in Sources */,
 				1893442826DCCA2900604A00 /* Task.swift in Sources */,
+				188D083026DE4CED00D63C7C /* PreviewData.swift in Sources */,
 				1893441726DCC81000604A00 /* VestaApp.swift in Sources */,
 				1893442A26DCFAF200604A00 /* TaskView.swift in Sources */,
 			);

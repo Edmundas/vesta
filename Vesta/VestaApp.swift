@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct VestaApp: App {
+    @ObservedObject var tasksViewModel = TasksViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            TasksView(tasks: Task.data)
+            NavigationView {
+                TasksView(tasks: $tasksViewModel.tasks) {
+                    tasksViewModel.save()
+                }
+            }
+            .onAppear {
+                tasksViewModel.load()
+            }
         }
     }
 }
