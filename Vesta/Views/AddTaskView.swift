@@ -13,9 +13,31 @@ struct AddTaskView: View {
     var body: some View {
         List {
             TextField("Title", text: $title)
+                .modifier(ClearButton(text: $title))
+                
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Add task")
+        .navigationTitle("New Task")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct ClearButton: ViewModifier {
+    @Binding var text: String
+    
+    public func body(content: Content) -> some View {
+        HStack {
+            content
+            
+            if !text.isEmpty {
+                Button(action: {
+                    self.text = ""
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
     }
 }
 

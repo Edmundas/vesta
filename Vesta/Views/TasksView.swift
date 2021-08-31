@@ -30,12 +30,14 @@ struct TasksView: View {
             .sheet(isPresented: $isPresented, content: {
                 NavigationView {
                     AddTaskView(title: $title)
-                        .navigationBarItems(leading: Button("Dismiss") {
+                        .navigationBarItems(leading: Button("Cancel") {
                             isPresented = false
+                            title = ""
                         }, trailing: Button("Add") {
                             // TODO: finish implementation
                             print(title)
                             isPresented = false
+                            title = ""
                         })
                 }
             })
