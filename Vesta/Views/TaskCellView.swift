@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskView: View {
+struct TaskCellView: View {
     let task: Task
     
     var body: some View {
@@ -17,7 +17,7 @@ struct TaskView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskView(task: previewTasks[0])
+        TaskCellView(task: previewTasks[0])
             .previewLayout(.fixed(width: 400, height: 60))
     }
 }

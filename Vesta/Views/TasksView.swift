@@ -20,12 +20,21 @@ struct TasksView: View {
     var body: some View {
         List {
             ForEach(tasks) { task in
-                TaskView(task: task)
+                NavigationLink(destination: Text("\(task.title)")) {
+                    TaskCellView(task: task)
+                }
+            }
+            .onMove { from, to in
+                tasks.move(fromOffsets: from, toOffset: to)
+            }
+            .onDelete { offsets in
+                tasks.remove(atOffsets: offsets)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Tasks")
-        .navigationBarItems(trailing: Button(action: {
+        .navigationBarItems(leading: EditButton(),
+                            trailing: Button(action: {
             isPresented = true
         }) {
             Image(systemName: "plus")
