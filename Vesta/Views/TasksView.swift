@@ -12,6 +12,7 @@ struct TasksView: View {
     
     @Environment(\.scenePhase) private var scenePhase
     
+    @State private var editMode: EditMode = .inactive
     @State private var isPresented = false
     @State private var isTitleEmpty = true
     @State private var title: String = ""
@@ -36,10 +37,12 @@ struct TasksView: View {
         .navigationTitle("Tasks")
         .navigationBarItems(leading: EditButton(),
                             trailing: Button(action: {
-            isPresented = true
-        }) {
-            Image(systemName: "plus")
-        })
+                                isPresented = true
+                            }) {
+                                Image(systemName: "plus")
+                            }
+                            .disabled(editMode.isEditing))
+        .environment(\.editMode, $editMode)
         .sheet(isPresented: $isPresented) {
             NavigationView {
                 AddTaskView(title: $title)
