@@ -14,7 +14,6 @@ struct AddTaskView: View {
         List {
             TextField("Title", text: $title)
                 .modifier(ClearButton(text: $title))
-                
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("New Task")

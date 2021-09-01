@@ -13,6 +13,7 @@ struct TasksView: View {
     @Environment(\.scenePhase) private var scenePhase
     
     @State private var isPresented = false
+    @State private var isTitleEmpty = true
     @State private var title: String = ""
     
     let saveAction: () -> Void
@@ -50,7 +51,11 @@ struct TasksView: View {
                         tasks.append(newTask)
                         isPresented = false
                         title = ""
-                    })
+                    }
+                    .disabled(isTitleEmpty))
+                    .onChange(of: title) { newTitle in
+                        isTitleEmpty = newTitle.isEmpty
+                    }
             }
         }
         .onChange(of: scenePhase) { phase in
