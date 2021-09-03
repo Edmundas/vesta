@@ -12,8 +12,10 @@ struct AddTaskView: View {
     
     var body: some View {
         List {
-            TextField("Title", text: $title)
-                .modifier(ClearButton(text: $title))
+            Section(header: Text("Info")) {
+                TextField("Title", text: $title)
+                    .modifier(ClearButton(text: $title))
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("New Task")
