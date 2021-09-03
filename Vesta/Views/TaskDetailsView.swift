@@ -19,7 +19,7 @@ struct TaskDetailsView: View {
                     Label("No time intervals yet", systemImage: "timer")
                 }
                 ForEach(task.timeIntervals, id: \.self) { timeInterval in
-                    Text(timeInterval.description)
+                    DateIntervalCellView(dateInterval: timeInterval)
                 }
                 .onDelete { offsets in
                     task.timeIntervals.remove(atOffsets: offsets)

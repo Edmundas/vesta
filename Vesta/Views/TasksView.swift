@@ -22,7 +22,7 @@ struct TasksView: View {
     var body: some View {
         List {
             ForEach(tasks) { task in
-                NavigationLink(destination: Text("\(task.title)")) {
+                NavigationLink(destination: TaskDetailsView(task: binding(for: task))) {
                     TaskCellView(task: task)
                 }
             }
@@ -35,13 +35,13 @@ struct TasksView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Tasks")
-        .navigationBarItems(leading: EditButton(),
-                            trailing: Button(action: {
-                                isPresented = true
-                            }) {
-                                Image(systemName: "plus")
-                            }
-                            .disabled(editMode.isEditing))
+        .navigationBarItems(leading: Button(action: {
+            isPresented = true
+        }) {
+            Image(systemName: "plus")
+        }
+        .disabled(editMode.isEditing),
+                            trailing: EditButton())
         .environment(\.editMode, $editMode)
         .sheet(isPresented: $isPresented) {
             NavigationView {
@@ -50,7 +50,7 @@ struct TasksView: View {
                         isPresented = false
                         title = ""
                     }, trailing: Button("Add") {
-                        let newTask = Task(title: title, timeIntervals: [])
+                        let newTask = Task(title: title, timeIntervals: [DateInterval(start: Date(), duration: 100)])
                         tasks.append(newTask)
                         isPresented = false
                         title = ""
@@ -64,6 +64,13 @@ struct TasksView: View {
         .onChange(of: scenePhase) { phase in
             if phase == .inactive { saveAction() }
         }
+    }
+    
+    private func binding(for task: Task) -> Binding<Task> {
+        guard let taskIndex = tasks.firstIndex(where: { $0.id == task.id }) else {
+            fatalError("Can't find task in array.")
+        }
+        return $tasks[taskIndex]
     }
 }
 
