@@ -10,6 +10,8 @@
 		1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */; };
 		1857E78B26E2072700E5EA00 /* DateIntervalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */; };
 		1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78D26E2384600E5EA00 /* ClearButton.swift */; };
+		1857E79026E2621D00E5EA00 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78F26E2621D00E5EA00 /* ContentView.swift */; };
+		1857E79226E2647100E5EA00 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E79126E2647100E5EA00 /* TimerView.swift */; };
 		188D082C26DE210900D63C7C /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D082B26DE210900D63C7C /* TasksViewModel.swift */; };
 		188D083026DE4CED00D63C7C /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D082F26DE4CED00D63C7C /* PreviewData.swift */; };
 		1893441726DCC81000604A00 /* VestaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893441626DCC81000604A00 /* VestaApp.swift */; };
@@ -25,6 +27,8 @@
 		1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsView.swift; sourceTree = "<group>"; };
 		1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntervalCellView.swift; sourceTree = "<group>"; };
 		1857E78D26E2384600E5EA00 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
+		1857E78F26E2621D00E5EA00 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1857E79126E2647100E5EA00 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		188D082B26DE210900D63C7C /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		188D082F26DE4CED00D63C7C /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		1893441326DCC81000604A00 /* Vesta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vesta.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +120,8 @@
 		1893442526DCC89B00604A00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1857E78F26E2621D00E5EA00 /* ContentView.swift */,
+				1857E79126E2647100E5EA00 /* TimerView.swift */,
 				1893441826DCC81000604A00 /* TasksView.swift */,
 				1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */,
 				1893442E26DD271C00604A00 /* ModifyTaskView.swift */,
@@ -203,10 +209,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				188D082C26DE210900D63C7C /* TasksViewModel.swift in Sources */,
+				1857E79026E2621D00E5EA00 /* ContentView.swift in Sources */,
 				1893441926DCC81000604A00 /* TasksView.swift in Sources */,
 				1857E78B26E2072700E5EA00 /* DateIntervalCellView.swift in Sources */,
 				1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */,
 				1893442826DCCA2900604A00 /* Task.swift in Sources */,
+				1857E79226E2647100E5EA00 /* TimerView.swift in Sources */,
 				1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */,
 				188D083026DE4CED00D63C7C /* PreviewData.swift in Sources */,
 				1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */,

@@ -18,6 +18,6 @@ struct TaskCellView: View {
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
         TaskCellView(task: previewTasks[0])
-            .previewLayout(.fixed(width: 400, height: 60))
+            .previewLayout(.sizeThatFits)
     }
 }

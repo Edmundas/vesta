@@ -11,16 +11,16 @@ import SwiftUI
 struct VestaApp: App {
     @ObservedObject var tasksViewModel = TasksViewModel()
     
+    @Environment(\.scenePhase) private var scenePhase
+    
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                TasksView(tasks: $tasksViewModel.tasks) {
-                    tasksViewModel.save()
-                }
-            }
-            .onAppear {
-                tasksViewModel.load()
-            }
+            ContentView()
+                .environmentObject(tasksViewModel)
+        }
+        .onChange(of: scenePhase) { phase in
+            if phase == .active { tasksViewModel.load() }
+            if phase == .inactive { tasksViewModel.save() }
         }
     }
 }

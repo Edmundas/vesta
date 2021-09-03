@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  TasksView.swift
 //  Vesta
 //
 //  Created by Edmundas Matusevicius on 2021-08-30.
@@ -10,14 +10,10 @@ import SwiftUI
 struct TasksView: View {
     @Binding var tasks: [Task]
     
-    @Environment(\.scenePhase) private var scenePhase
-    
     @State private var editMode: EditMode = .inactive
     @State private var isPresented = false
     @State private var isTitleEmpty = true
     @State private var newTask = Task()
-    
-    let saveAction: () -> Void
     
     var body: some View {
         List {
@@ -53,11 +49,7 @@ struct TasksView: View {
                     .onChange(of: newTask.title) { newTitle in
                         isTitleEmpty = newTitle.isEmpty
                     }
-                    
             }
-        }
-        .onChange(of: scenePhase) { phase in
-            if phase == .inactive { saveAction() }
         }
     }
     
@@ -69,8 +61,8 @@ struct TasksView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksView(tasks: .constant(previewTasks), saveAction: {})
+        TasksView(tasks: .constant(previewTasks))
     }
 }
