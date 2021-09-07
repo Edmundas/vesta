@@ -20,8 +20,15 @@ struct TimerView: View {
             Section() {
                 HStack {
                     Spacer()
-                    Text(DataFormatter.formattedDuration(duration: stopWatch.secondsElapsed))
-                        .font(.title)
+                    VStack {
+                        Text(DataFormatter.formattedDuration(duration: stopWatch.secondsElapsed))
+                            .font(.title)
+                        if let title = selectedTask?.title {
+                            Spacer()
+                            Text(title)
+                                .font(.subheadline)
+                        }
+                    }
                     Spacer()
                 }
                 .padding(.vertical)
