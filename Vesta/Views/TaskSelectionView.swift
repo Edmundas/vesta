@@ -13,6 +13,10 @@ struct TaskSelectionView: View {
     
     var body: some View {
         List {
+            if tasks.isEmpty {
+                Label("No tasks yet", systemImage: "exclamationmark.circle")
+            }
+            
             ForEach(tasks) { task in
                 Button(action: {
                     selectedTask = task

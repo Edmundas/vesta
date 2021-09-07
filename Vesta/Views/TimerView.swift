@@ -58,6 +58,10 @@ struct TimerView: View {
                 .padding(.vertical)
             }
             Section() {
+                if tasks.isEmpty {
+                    Label("No tasks yet", systemImage: "exclamationmark.circle")
+                }
+                
                 let (displayedTimerEntries, displayedTaskEntries) = recentTimerEntries(tasks: tasks)
                 
                 ForEach(displayedTimerEntries.indices, id: \.self) { i in
@@ -85,10 +89,7 @@ struct TimerView: View {
                     .navigationBarItems(leading: Button("Cancel") {
                         showingSelectTaskSheet = false
                         selectedTask = nil
-                    }, trailing: Button(action: {
-                        // TODO: add task action
-                    } ) { Image(systemName: "plus") }
-                    .disabled(true))
+                    })
                     .onChange(of: selectedTask) { newSelectedTask in
                         showingSelectTaskSheet = false
                         stopWatch.start()

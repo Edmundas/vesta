@@ -135,10 +135,10 @@
 				1857E79126E2647100E5EA00 /* TimerView.swift */,
 				1893441826DCC81000604A00 /* TasksView.swift */,
 				1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */,
+				181EE25226E649E9002BAB1A /* TaskSelectionView.swift */,
 				1893442E26DD271C00604A00 /* ModifyTaskView.swift */,
 				1893442926DCFAF200604A00 /* TaskCellView.swift */,
 				1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */,
-				181EE25226E649E9002BAB1A /* TaskSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
