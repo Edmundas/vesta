@@ -19,17 +19,21 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            TimerView(tasks: $tasksViewModel.tasks)
-                .tabItem {
-                    Label("Timer", systemImage: "clock")
-                }
-                .tag(Tab.timer)
+            NavigationView {
+                TimerView(tasks: $tasksViewModel.tasks)
+            }
+            .tabItem {
+                Label("Timer", systemImage: "clock")
+            }
+            .tag(Tab.timer)
             
-            TasksView(tasks: $tasksViewModel.tasks)
-                .tabItem {
-                    Label("Tasks", systemImage: "folder")
-                }
-                .tag(Tab.tasks)
+            NavigationView {
+                TasksView(tasks: $tasksViewModel.tasks)
+            }
+            .tabItem {
+                Label("Tasks", systemImage: "folder")
+            }
+            .tag(Tab.tasks)
         }
     }
 }

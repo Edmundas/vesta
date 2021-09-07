@@ -16,69 +16,67 @@ struct TimerView: View {
     @State private var selectedTask: Task?
     
     var body: some View {
-        NavigationView {
-            List {
-                Section() {
-                    HStack {
-                        Spacer()
-                        Text(DataFormatter.formattedDuration(duration: stopWatch.secondsElapsed))
-                            .font(.title)
-                        Spacer()
-                    }
-                    .padding(.vertical)
-                }
-                Section() {
-                    HStack {
-                        Spacer()
-                        Button(stopWatch.mode == .running ? "Stop" : "Start") {
-                            if stopWatch.mode == .stopped {
-                                showingSelectTaskSheet = true
-                            } else {
-                                if let task = selectedTask {
-                                    let secondsElapsed = stopWatch.secondsElapsed
-                                    let dateInterval = DateInterval(start: Date(timeIntervalSinceNow: -secondsElapsed), duration: secondsElapsed)
-                                    if let index = tasks.firstIndex(of: task) {
-                                        tasks[index].timeIntervals.append(dateInterval)
-                                    }
-                                }
-                                selectedTask = nil
-                                stopWatch.stop()
-                            }
-                        }
+        List {
+            Section() {
+                HStack {
+                    Spacer()
+                    Text(DataFormatter.formattedDuration(duration: stopWatch.secondsElapsed))
                         .font(.title)
-                        .foregroundColor(stopWatch.mode == .running ? .red : .accentColor)
-                        Spacer()
-                    }
-                    .padding(.vertical)
+                    Spacer()
                 }
-                Section() {
-                    let (timeEntries, titleEntries) = recentEntries(tasks: tasks)
-                    
-                    ForEach(timeEntries, id: \.self) { dateInterval in
-                        DateIntervalCellView(dateInterval: dateInterval, title: titleEntries[timeEntries.firstIndex(of: dateInterval)!])
+                .padding(.vertical)
+            }
+            Section() {
+                HStack {
+                    Spacer()
+                    Button(stopWatch.mode == .running ? "Stop" : "Start") {
+                        if stopWatch.mode == .stopped {
+                            showingSelectTaskSheet = true
+                        } else {
+                            if let task = selectedTask {
+                                let secondsElapsed = stopWatch.secondsElapsed
+                                let dateInterval = DateInterval(start: Date(timeIntervalSinceNow: -secondsElapsed), duration: secondsElapsed)
+                                if let index = tasks.firstIndex(of: task) {
+                                    tasks[index].timeIntervals.append(dateInterval)
+                                }
+                            }
+                            selectedTask = nil
+                            stopWatch.stop()
+                        }
                     }
-                    .onDelete { offsets in
-                        // TODO: delete time entries
-                    }
+                    .font(.title)
+                    .foregroundColor(stopWatch.mode == .running ? .red : .accentColor)
+                    Spacer()
+                }
+                .padding(.vertical)
+            }
+            Section() {
+                let (timeEntries, titleEntries) = recentEntries(tasks: tasks)
+                
+                ForEach(timeEntries, id: \.self) { dateInterval in
+                    DateIntervalCellView(dateInterval: dateInterval, title: titleEntries[timeEntries.firstIndex(of: dateInterval)!])
+                }
+                .onDelete { offsets in
+                    // TODO: delete time entries
                 }
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Timer")
-            .sheet(isPresented: $showingSelectTaskSheet) {
-                NavigationView {
-                    TaskSelectionView(tasks: $tasks, selectedTask: $selectedTask)
-                        .navigationBarItems(leading: Button("Cancel") {
-                            showingSelectTaskSheet = false
-                            selectedTask = nil
-                        }, trailing: Button(action: {
-                            // TODO: add task action
-                        } ) { Image(systemName: "plus") }
-                        .disabled(true))
-                        .onChange(of: selectedTask) { newSelectedTask in
-                            showingSelectTaskSheet = false
-                            stopWatch.start()
-                        }
-                }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Timer")
+        .sheet(isPresented: $showingSelectTaskSheet) {
+            NavigationView {
+                TaskSelectionView(tasks: $tasks, selectedTask: $selectedTask)
+                    .navigationBarItems(leading: Button("Cancel") {
+                        showingSelectTaskSheet = false
+                        selectedTask = nil
+                    }, trailing: Button(action: {
+                        // TODO: add task action
+                    } ) { Image(systemName: "plus") }
+                    .disabled(true))
+                    .onChange(of: selectedTask) { newSelectedTask in
+                        showingSelectTaskSheet = false
+                        stopWatch.start()
+                    }
             }
         }
     }

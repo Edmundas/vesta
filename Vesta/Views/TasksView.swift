@@ -16,44 +16,42 @@ struct TasksView: View {
     @State private var newTask = Task()
     
     var body: some View {
-        NavigationView {
-            List {
-                if tasks.isEmpty {
-                    Label("No tasks yet", systemImage: "exclamationmark.circle")
-                }
-                ForEach(tasks) { task in
-                    NavigationLink(destination: TaskDetailsView(task: binding(for: task))) {
-                        TaskCellView(task: task)
-                    }
-                }
-                .onMove { from, to in
-                    tasks.move(fromOffsets: from, toOffset: to)
-                }
-                .onDelete { offsets in
-                    tasks.remove(atOffsets: offsets)
+        List {
+            if tasks.isEmpty {
+                Label("No tasks yet", systemImage: "exclamationmark.circle")
+            }
+            ForEach(tasks) { task in
+                NavigationLink(destination: TaskDetailsView(task: binding(for: task))) {
+                    TaskCellView(task: task)
                 }
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Tasks")
-            .navigationBarItems(leading: Button(action: { showingAddTaskSheet = true }) { Image(systemName: "plus") }.disabled(editMode.isEditing),
-                                trailing: EditButton())
-            .environment(\.editMode, $editMode)
-            .sheet(isPresented: $showingAddTaskSheet) {
-                NavigationView {
-                    ModifyTaskView(task: $newTask)
-                        .navigationBarItems(leading: Button("Cancel") {
-                            newTask = Task()
-                            showingAddTaskSheet = false
-                        }, trailing: Button("Add") {
-                            tasks.append(newTask)
-                            newTask = Task()
-                            showingAddTaskSheet = false
-                        }
-                        .disabled(isNewTaskEmpty))
-                        .onChange(of: newTask.title) { newTitle in
-                            isNewTaskEmpty = newTitle.isEmpty
-                        }
-                }
+            .onMove { from, to in
+                tasks.move(fromOffsets: from, toOffset: to)
+            }
+            .onDelete { offsets in
+                tasks.remove(atOffsets: offsets)
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Tasks")
+        .navigationBarItems(leading: Button(action: { showingAddTaskSheet = true }) { Image(systemName: "plus") }.disabled(editMode.isEditing),
+                            trailing: EditButton())
+        .environment(\.editMode, $editMode)
+        .sheet(isPresented: $showingAddTaskSheet) {
+            NavigationView {
+                ModifyTaskView(task: $newTask)
+                    .navigationBarItems(leading: Button("Cancel") {
+                        newTask = Task()
+                        showingAddTaskSheet = false
+                    }, trailing: Button("Add") {
+                        tasks.append(newTask)
+                        newTask = Task()
+                        showingAddTaskSheet = false
+                    }
+                    .disabled(isNewTaskEmpty))
+                    .onChange(of: newTask.title) { newTitle in
+                        isNewTaskEmpty = newTitle.isEmpty
+                    }
             }
         }
     }
