@@ -84,17 +84,12 @@ struct TimerView: View {
         .navigationTitle("Timer")
         .sheet(isPresented: $showingSelectTaskSheet) {
             NavigationView {
-                TaskSelectionView(tasks: $tasks, selectedTask: $selectedTask)
-                    .navigationBarItems(leading: Button("Cancel") {
-                        showingSelectTaskSheet = false
-                        selectedTask = nil
-                    }, trailing: Button(action: {
-                        // TODO: add new task
-                    }) { Image(systemName: "plus") })
-                    .onChange(of: selectedTask) { newSelectedTask in
-                        showingSelectTaskSheet = false
+                TaskSelectionView(tasks: $tasks, selectedTask: $selectedTask) {
+                    showingSelectTaskSheet = false
+                    if let _ = selectedTask {
                         stopWatch.start()
                     }
+                }
             }
         }
     }

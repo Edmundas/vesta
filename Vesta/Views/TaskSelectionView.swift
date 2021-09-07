@@ -11,6 +11,14 @@ struct TaskSelectionView: View {
     @Binding var tasks: [Task]
     @Binding var selectedTask: Task?
     
+    let completion: (() -> Void)?
+    
+    init(tasks: Binding<[Task]>, selectedTask: Binding<Task?>, completion: (() -> Void)? = nil) {
+        self._tasks = tasks
+        self._selectedTask = selectedTask
+        self.completion = completion
+    }
+    
     var body: some View {
         List {
             if tasks.isEmpty {
@@ -20,6 +28,7 @@ struct TaskSelectionView: View {
             ForEach(tasks) { task in
                 Button(action: {
                     selectedTask = task
+                    completion?()
                 }) {
                     Text(task.title)
                         .foregroundColor(.primary)
@@ -28,6 +37,12 @@ struct TaskSelectionView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Tasks")
+        .navigationBarItems(leading: Button("Cancel") {
+            selectedTask = nil
+            completion?()
+        }, trailing: Button(action: {
+            // TODO: add new task
+        }) { Image(systemName: "plus") })
     }
 }
 
