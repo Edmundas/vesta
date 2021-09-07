@@ -13,6 +13,9 @@ struct TaskSelectionView: View {
     
     let completion: (() -> Void)?
     
+    @State private var showingAddTaskSheet = false
+    @State private var newTask: Task?
+    
     init(tasks: Binding<[Task]>, selectedTask: Binding<Task?>, completion: (() -> Void)? = nil) {
         self._tasks = tasks
         self._selectedTask = selectedTask
@@ -41,8 +44,19 @@ struct TaskSelectionView: View {
             selectedTask = nil
             completion?()
         }, trailing: Button(action: {
-            // TODO: add new task
+            showingAddTaskSheet = true
         }) { Image(systemName: "plus") })
+        .sheet(isPresented: $showingAddTaskSheet) {
+            NavigationView {
+                ModifyTaskView(task: $newTask) {
+                    if let task = newTask {
+                        tasks.append(task)
+                    }
+                    newTask = nil
+                    showingAddTaskSheet = false
+                }
+            }
+        }
     }
 }
 
