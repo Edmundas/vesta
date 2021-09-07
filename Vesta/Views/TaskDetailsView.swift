@@ -17,10 +17,10 @@ struct TaskDetailsView: View {
     var body: some View {
         List {
             if task.timeIntervals.isEmpty {
-                Label("No time intervals yet", systemImage: "timer")
+                Label("No time intervals yet", systemImage: "exclamationmark.circle")
             }
             ForEach(task.timeIntervals, id: \.self) { timeInterval in
-                DateIntervalCellView(dateInterval: timeInterval)
+                DateIntervalCellView(dateInterval: timeInterval, title: nil)
             }
             .onDelete { offsets in
                 task.timeIntervals.remove(atOffsets: offsets)

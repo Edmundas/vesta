@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		181EE24F26E608A8002BAB1A /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EE24E26E608A8002BAB1A /* StopWatch.swift */; };
 		181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EE25026E60D24002BAB1A /* DataFormatter.swift */; };
+		181EE25326E649E9002BAB1A /* TaskSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EE25226E649E9002BAB1A /* TaskSelectionView.swift */; };
+		18306B5826E74A6D0095A076 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18306B5726E74A6D0095A076 /* Extensions.swift */; };
 		1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */; };
 		1857E78B26E2072700E5EA00 /* DateIntervalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */; };
 		1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78D26E2384600E5EA00 /* ClearButton.swift */; };
@@ -28,6 +30,8 @@
 /* Begin PBXFileReference section */
 		181EE24E26E608A8002BAB1A /* StopWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
 		181EE25026E60D24002BAB1A /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
+		181EE25226E649E9002BAB1A /* TaskSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionView.swift; sourceTree = "<group>"; };
+		18306B5726E74A6D0095A076 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsView.swift; sourceTree = "<group>"; };
 		1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntervalCellView.swift; sourceTree = "<group>"; };
 		1857E78D26E2384600E5EA00 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
@@ -63,6 +67,7 @@
 				1857E78D26E2384600E5EA00 /* ClearButton.swift */,
 				181EE24E26E608A8002BAB1A /* StopWatch.swift */,
 				181EE25026E60D24002BAB1A /* DataFormatter.swift */,
+				18306B5726E74A6D0095A076 /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 				1893442E26DD271C00604A00 /* ModifyTaskView.swift */,
 				1893442926DCFAF200604A00 /* TaskCellView.swift */,
 				1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */,
+				181EE25226E649E9002BAB1A /* TaskSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,8 +231,10 @@
 				1857E79226E2647100E5EA00 /* TimerView.swift in Sources */,
 				1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */,
 				188D083026DE4CED00D63C7C /* PreviewData.swift in Sources */,
+				18306B5826E74A6D0095A076 /* Extensions.swift in Sources */,
 				1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */,
 				1893441726DCC81000604A00 /* VestaApp.swift in Sources */,
+				181EE25326E649E9002BAB1A /* TaskSelectionView.swift in Sources */,
 				1893442A26DCFAF200604A00 /* TaskCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

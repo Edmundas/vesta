@@ -25,14 +25,11 @@ struct ContentView: View {
                 }
                 .tag(Tab.timer)
             
-            NavigationView {
-                TasksView(tasks: $tasksViewModel.tasks)
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .tabItem {
-                Label("Tasks", systemImage: "folder")
-            }
-            .tag(Tab.tasks)
+            TasksView(tasks: $tasksViewModel.tasks)
+                .tabItem {
+                    Label("Tasks", systemImage: "folder")
+                }
+                .tag(Tab.tasks)
         }
     }
 }
