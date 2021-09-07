@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EE25026E60D24002BAB1A /* DataFormatter.swift */; };
 		1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */; };
 		1857E78B26E2072700E5EA00 /* DateIntervalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */; };
 		1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78D26E2384600E5EA00 /* ClearButton.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181EE25026E60D24002BAB1A /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
 		1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsView.swift; sourceTree = "<group>"; };
 		1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntervalCellView.swift; sourceTree = "<group>"; };
 		1857E78D26E2384600E5EA00 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				1857E78D26E2384600E5EA00 /* ClearButton.swift */,
+				181EE25026E60D24002BAB1A /* DataFormatter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				188D082C26DE210900D63C7C /* TasksViewModel.swift in Sources */,
 				1857E79026E2621D00E5EA00 /* ContentView.swift in Sources */,
 				1893441926DCC81000604A00 /* TasksView.swift in Sources */,
+				181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */,
 				1857E78B26E2072700E5EA00 /* DateIntervalCellView.swift in Sources */,
 				1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */,
 				1893442826DCCA2900604A00 /* Task.swift in Sources */,

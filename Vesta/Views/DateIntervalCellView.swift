@@ -21,36 +21,14 @@ struct DateIntervalCellView: View {
             .font(.subheadline)
             Spacer()
             VStack(alignment: .trailing) {
-                Text(formattedDate(date: dateInterval.start))
-                Text(formattedTime(date: dateInterval.start))
-                Text(formattedTime(date: dateInterval.end))
-                Text(formattedDuration(duration: dateInterval.duration))
+                Text(DataFormatter.formattedDate(date: dateInterval.start))
+                Text(DataFormatter.formattedTime(date: dateInterval.start))
+                Text(DataFormatter.formattedTime(date: dateInterval.end))
+                Text(DataFormatter.formattedDuration(duration: dateInterval.duration))
             }
             .font(.headline)
         }
         .padding(.vertical)
-    }
-    
-    private func formattedDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    private func formattedTime(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .medium
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    private func formattedDuration(duration: Double) -> String {
-        let s = Int(duration) % 60
-        let m = Int(duration) / 60
-        let h = Int(duration) / 360
-        
-        return String(format:"%02d:%02d:%02d", h, m, s)
     }
 }
 
