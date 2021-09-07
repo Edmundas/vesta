@@ -58,13 +58,22 @@ struct TimerView: View {
                 .padding(.vertical)
             }
             Section() {
-                let (timeEntries, titleEntries) = recentEntries(tasks: tasks)
+                let (displayedTimerEntries, displayedTaskEntries) = recentTimerEntries(tasks: tasks)
                 
-                ForEach(timeEntries, id: \.self) { dateInterval in
-                    DateIntervalCellView(dateInterval: dateInterval, title: titleEntries[timeEntries.firstIndex(of: dateInterval)!])
+                ForEach(displayedTimerEntries.indices, id: \.self) { i in
+                    DateIntervalCellView(dateInterval: displayedTimerEntries[i], title: displayedTaskEntries[i].title)
                 }
                 .onDelete { offsets in
-                    // TODO: delete time entries
+                    if let index = offsets.first {
+                        let timerEntry = displayedTimerEntries[index]
+                        let taskEntry = displayedTaskEntries[index]
+                        
+                        if let taskIndex = tasks.firstIndex(of: taskEntry) {
+                            if let timerIntervalIndex = tasks[taskIndex].timeIntervals.firstIndex(of: timerEntry) {
+                                tasks[taskIndex].timeIntervals.remove(at: timerIntervalIndex)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -88,24 +97,24 @@ struct TimerView: View {
         }
     }
     
-    private func recentEntries(tasks: [Task]) -> ([DateInterval], [String]) {
+    private func recentTimerEntries(tasks: [Task]) -> ([DateInterval], [Task]) {
         let numberOfEntries = 5
-        var timeEntries: [DateInterval] = []
-        var titleEntries: [String] = []
+        var recentEntries: [DateInterval] = []
+        var recentTasks: [Task] = []
         
         for task in tasks {
             for timeInterval in task.timeIntervals {
-                let index = timeEntries.insertionReverseIndex(of: timeInterval)
-                timeEntries.insert(timeInterval, at: index)
-                titleEntries.insert(task.title, at: index)
-                if timeEntries.count > numberOfEntries {
-                    timeEntries.remove(at: numberOfEntries)
-                    titleEntries.remove(at: numberOfEntries)
+                let index = recentEntries.insertionReverseIndex(of: timeInterval)
+                recentEntries.insert(timeInterval, at: index)
+                recentTasks.insert(task, at: index)
+                if recentEntries.count > numberOfEntries {
+                    recentEntries.remove(at: numberOfEntries)
+                    recentTasks.remove(at: numberOfEntries)
                 }
             }
         }
         
-        return (timeEntries, titleEntries)
+        return (recentEntries, recentTasks)
     }
 }
 
