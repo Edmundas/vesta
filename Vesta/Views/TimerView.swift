@@ -88,7 +88,9 @@ struct TimerView: View {
                     .navigationBarItems(leading: Button("Cancel") {
                         showingSelectTaskSheet = false
                         selectedTask = nil
-                    })
+                    }, trailing: Button(action: {
+                        // TODO: add new task
+                    }) { Image(systemName: "plus") })
                     .onChange(of: selectedTask) { newSelectedTask in
                         showingSelectTaskSheet = false
                         stopWatch.start()

@@ -10,9 +10,7 @@ import SwiftUI
 struct TaskDetailsView: View {
     @Binding var task: Task
     
-    @State private var isPresented = false
-    @State private var isTitleEmpty = false
-    @State private var modifiedTask = Task()
+    @State private var showingModifyTaskSheet = false
     
     var body: some View {
         List {
@@ -29,22 +27,13 @@ struct TaskDetailsView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(task.title)
         .navigationBarItems(trailing: Button(action: {
-            modifiedTask = task
-            isPresented = true
-        },
-                                             label: { Text("Edit") }))
-        .sheet(isPresented: $isPresented) {
+            showingModifyTaskSheet = true
+        }, label: { Text("Edit") }))
+        .sheet(isPresented: $showingModifyTaskSheet) {
             NavigationView {
-                ModifyTaskView(task: $modifiedTask)
-                    .navigationBarItems(leading: Button("Cancel") {
-                        isPresented = false
-                    }, trailing: Button("Done") {
-                        task = modifiedTask
-                        isPresented = false
-                    }.disabled(isTitleEmpty))
-                    .onChange(of: task.title) { newTitle in
-                        isTitleEmpty = newTitle.isEmpty
-                    }
+                ModifyTaskView(task: Binding.init($task)) {
+                    showingModifyTaskSheet = false
+                }
             }
         }
     }

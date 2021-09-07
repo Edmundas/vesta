@@ -12,8 +12,7 @@ struct TasksView: View {
     
     @State private var editMode: EditMode = .inactive
     @State private var showingAddTaskSheet = false
-    @State private var isNewTaskEmpty = true
-    @State private var newTask = Task()
+    @State private var newTask: Task?
     
     var body: some View {
         List {
@@ -34,24 +33,20 @@ struct TasksView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Tasks")
-        .navigationBarItems(leading: Button(action: { showingAddTaskSheet = true }) { Image(systemName: "plus") }.disabled(editMode.isEditing),
+        .navigationBarItems(leading: Button(action: {
+            showingAddTaskSheet = true
+        }) { Image(systemName: "plus") }.disabled(editMode.isEditing),
                             trailing: EditButton())
         .environment(\.editMode, $editMode)
         .sheet(isPresented: $showingAddTaskSheet) {
             NavigationView {
-                ModifyTaskView(task: $newTask)
-                    .navigationBarItems(leading: Button("Cancel") {
-                        newTask = Task()
-                        showingAddTaskSheet = false
-                    }, trailing: Button("Add") {
-                        tasks.append(newTask)
-                        newTask = Task()
-                        showingAddTaskSheet = false
+                ModifyTaskView(task: $newTask) {
+                    if let task = newTask {
+                        tasks.append(task)
                     }
-                    .disabled(isNewTaskEmpty))
-                    .onChange(of: newTask.title) { newTitle in
-                        isNewTaskEmpty = newTitle.isEmpty
-                    }
+                    newTask = nil
+                    showingAddTaskSheet = false
+                }
             }
         }
     }
