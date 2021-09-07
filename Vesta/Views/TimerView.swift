@@ -58,12 +58,11 @@ struct TimerView: View {
                 .padding(.vertical)
             }
             Section() {
-                if tasks.isEmpty {
-                    Label("No tasks yet", systemImage: "exclamationmark.circle")
-                }
-                
                 let (displayedTimerEntries, displayedTaskEntries) = recentTimerEntries(tasks: tasks)
                 
+                if displayedTimerEntries.isEmpty {
+                    Label("No time intervals yet", systemImage: "exclamationmark.circle")
+                }
                 ForEach(displayedTimerEntries.indices, id: \.self) { i in
                     DateIntervalCellView(dateInterval: displayedTimerEntries[i], title: displayedTaskEntries[i].title)
                 }
