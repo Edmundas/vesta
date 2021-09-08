@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct VestaApp: App {
     @ObservedObject var tasksViewModel = TasksViewModel()
+    @ObservedObject var stopWatch = StopWatch()
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -17,6 +18,7 @@ struct VestaApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(tasksViewModel)
+                .environmentObject(stopWatch)
         }
         .onChange(of: scenePhase) { phase in
             if phase == .active { tasksViewModel.load() }

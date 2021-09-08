@@ -9,16 +9,16 @@ import SwiftUI
 
 struct TaskSelectionView: View {
     @Binding var tasks: [Task]
-    @Binding var selectedTask: Task?
+    @Binding var selectedTaskId: UUID?
     
     let completion: (() -> Void)?
     
     @State private var showingAddTaskSheet = false
     @State private var newTask: Task?
     
-    init(tasks: Binding<[Task]>, selectedTask: Binding<Task?>, completion: (() -> Void)? = nil) {
+    init(tasks: Binding<[Task]>, selectedTaskId: Binding<UUID?>, completion: (() -> Void)? = nil) {
         self._tasks = tasks
-        self._selectedTask = selectedTask
+        self._selectedTaskId = selectedTaskId
         self.completion = completion
     }
     
@@ -30,7 +30,7 @@ struct TaskSelectionView: View {
             
             ForEach(tasks) { task in
                 Button(action: {
-                    selectedTask = task
+                    selectedTaskId = task.id
                     completion?()
                 }) {
                     Text(task.title)
@@ -41,7 +41,7 @@ struct TaskSelectionView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Tasks")
         .navigationBarItems(leading: Button("Cancel") {
-            selectedTask = nil
+            selectedTaskId = nil
             completion?()
         }, trailing: Button(action: {
             showingAddTaskSheet = true
@@ -62,6 +62,6 @@ struct TaskSelectionView: View {
 
 struct TeskSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskSelectionView(tasks: .constant(previewTasks), selectedTask: .constant(nil))
+        TaskSelectionView(tasks: .constant(previewTasks), selectedTaskId: .constant(nil))
     }
 }

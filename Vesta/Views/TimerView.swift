@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TimerView: View {
-    @ObservedObject var stopWatch = StopWatch()
+    @EnvironmentObject var stopWatch: StopWatch
     
     @Binding var tasks: [Task]
     
     @State private var showingSelectTaskSheet = false
-    @State private var selectedTask: Task?
+    @State private var selectedTaskId: UUID?
     
     var body: some View {
         List {
@@ -23,9 +23,9 @@ struct TimerView: View {
                     VStack {
                         Text(DataFormatter.formattedDuration(duration: stopWatch.secondsElapsed))
                             .font(.title)
-                        if let title = selectedTask?.title {
+                        if let task = tasks.first(where: { $0.id == selectedTaskId }) {
                             Spacer()
-                            Text(title)
+                            Text(task.title)
                                 .font(.subheadline)
                         }
                     }
@@ -40,14 +40,14 @@ struct TimerView: View {
                         if stopWatch.mode == .stopped {
                             showingSelectTaskSheet = true
                         } else {
-                            if let task = selectedTask {
+                            if let task = tasks.first(where: { $0.id == selectedTaskId }) {
                                 let secondsElapsed = stopWatch.secondsElapsed
                                 let dateInterval = DateInterval(start: Date(timeIntervalSinceNow: -secondsElapsed), duration: secondsElapsed)
                                 if let index = tasks.firstIndex(of: task) {
                                     tasks[index].timeIntervals.append(dateInterval)
                                 }
                             }
-                            selectedTask = nil
+                            selectedTaskId = nil
                             stopWatch.stop()
                         }
                     }
@@ -84,9 +84,9 @@ struct TimerView: View {
         .navigationTitle("Timer")
         .sheet(isPresented: $showingSelectTaskSheet) {
             NavigationView {
-                TaskSelectionView(tasks: $tasks, selectedTask: $selectedTask) {
+                TaskSelectionView(tasks: $tasks, selectedTaskId: $selectedTaskId) {
                     showingSelectTaskSheet = false
-                    if let _ = selectedTask {
+                    if let _ = selectedTaskId {
                         stopWatch.start()
                     }
                 }
