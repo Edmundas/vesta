@@ -13,10 +13,11 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
+        for index in 0..<10 {
             let newTask = Task(context: viewContext)
             newTask.id = UUID()
-            newTask.title = "First task"
+            newTask.title = "Task #\(index + 1)"
+            newTask.userOrder = Int16(index + 1)
         }
         do {
             try viewContext.save()
