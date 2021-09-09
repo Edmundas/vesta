@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskCellView: View {
-    let task: Task
+    let task: TaskOld
     
     var body: some View {
         Text(task.title)

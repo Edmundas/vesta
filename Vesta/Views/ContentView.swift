@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var tasksViewModel: TasksViewModel
+//    @EnvironmentObject var tasksViewModel: TasksViewModel
     
     @State private var selection: Tab = .timer
     
@@ -20,7 +20,8 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selection) {
             NavigationView {
-                TimerView(tasks: $tasksViewModel.tasks)
+//                TimerView(tasks: $tasksViewModel.tasks)
+                TimerView()
             }
             .tabItem {
                 Label("Timer", systemImage: "clock")
@@ -28,7 +29,8 @@ struct ContentView: View {
             .tag(Tab.timer)
             
             NavigationView {
-                TasksView(tasks: $tasksViewModel.tasks)
+//                TasksView(tasks: $tasksViewModel.tasks)
+                TasksView()
             }
             .tabItem {
                 Label("Tasks", systemImage: "folder")

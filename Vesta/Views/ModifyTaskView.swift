@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ModifyTaskView: View {
-    @Binding var task: Task?
+    @Binding var task: TaskOld?
     
     let completion: (() -> Void)?
     
     @State private var isNewTaskEmpty = true
     @State private var taskTitle: String
     
-    init(task: Binding<Task?>, completion: (() -> Void)? = nil) {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    init(task: Binding<TaskOld?>, completion: (() -> Void)? = nil) {
         self._task = task
         self.completion = completion
         self._taskTitle = State.init(wrappedValue: task.wrappedValue?.title ?? "")
@@ -34,10 +36,15 @@ struct ModifyTaskView: View {
         .navigationBarItems(leading: Button("Cancel") {
             completion?()
         }, trailing: Button("Save") {
+            let taskX = Task(context: managedObjectContext)
+            taskX.id = UUID()
+            taskX.title = taskTitle
+            PersistenceController.shared.saveContext()
+            
             if var _ = task {
                 task!.title = taskTitle
             } else {
-                task = Task(title: taskTitle)
+                task = TaskOld(title: taskTitle)
             }
             completion?()
         }

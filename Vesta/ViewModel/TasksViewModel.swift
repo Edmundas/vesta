@@ -22,14 +22,14 @@ class TasksViewModel: ObservableObject {
         return documentsFolder.appendingPathComponent("tasks.data")
     }
     
-    @Published var tasks: [Task] = []
+    @Published var tasks: [TaskOld] = []
     
     func load() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let data = try? Data(contentsOf: Self.fileURL) else {
                 return
             }
-            guard let decodedTasks = try? JSONDecoder().decode([Task].self, from: data) else {
+            guard let decodedTasks = try? JSONDecoder().decode([TaskOld].self, from: data) else {
                 fatalError("Can't decode saved tasks data.")
             }
             DispatchQueue.main.async {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskDetailsView: View {
-    @Binding var task: Task
+    @Binding var task: TaskOld
     
     @State private var showingModifyTaskSheet = false
     

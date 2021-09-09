@@ -22,9 +22,16 @@
 		1893441926DCC81000604A00 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893441826DCC81000604A00 /* TasksView.swift */; };
 		1893441B26DCC81200604A00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893441A26DCC81200604A00 /* Assets.xcassets */; };
 		1893441E26DCC81200604A00 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893441D26DCC81200604A00 /* Preview Assets.xcassets */; };
-		1893442826DCCA2900604A00 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442726DCCA2900604A00 /* Task.swift */; };
+		1893442826DCCA2900604A00 /* TaskOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442726DCCA2900604A00 /* TaskOld.swift */; };
 		1893442A26DCFAF200604A00 /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442926DCFAF200604A00 /* TaskCellView.swift */; };
 		1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442E26DD271C00604A00 /* ModifyTaskView.swift */; };
+		18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18BE374B26E8F5860012176B /* Model.xcdatamodeld */; };
+		18BE379126E8FD430012176B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BE379026E8FD430012176B /* CloudKit.framework */; };
+		18BE379326E8FE060012176B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE379226E8FE060012176B /* Persistence.swift */; };
+		18E669CD26E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669C926E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift */; };
+		18E669CE26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669CA26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift */; };
+		18E669CF26E9EC9B00D66B40 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669CB26E9EC9B00D66B40 /* Task+CoreDataClass.swift */; };
+		18E669D026E9EC9B00D66B40 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669CC26E9EC9B00D66B40 /* Task+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,9 +52,17 @@
 		1893441A26DCC81200604A00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1893441D26DCC81200604A00 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1893441F26DCC81200604A00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1893442726DCCA2900604A00 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		1893442726DCCA2900604A00 /* TaskOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskOld.swift; sourceTree = "<group>"; };
 		1893442926DCFAF200604A00 /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
 		1893442E26DD271C00604A00 /* ModifyTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyTaskView.swift; sourceTree = "<group>"; };
+		18BE374C26E8F5860012176B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		18BE378E26E8FD3F0012176B /* Vesta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vesta.entitlements; sourceTree = "<group>"; };
+		18BE379026E8FD430012176B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		18BE379226E8FE060012176B /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		18E669C926E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18E669CA26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		18E669CB26E9EC9B00D66B40 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18E669CC26E9EC9B00D66B40 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18BE379126E8FD430012176B /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +109,7 @@
 			children = (
 				1893441526DCC81000604A00 /* Vesta */,
 				1893441426DCC81000604A00 /* Products */,
+				18BE378F26E8FD430012176B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +132,7 @@
 				188D082E26DE4CCD00D63C7C /* Resources */,
 				1893441A26DCC81200604A00 /* Assets.xcassets */,
 				1893441F26DCC81200604A00 /* Info.plist */,
+				18BE378E26E8FD3F0012176B /* Vesta.entitlements */,
 				1893441C26DCC81200604A00 /* Preview Content */,
 			);
 			path = Vesta;
@@ -146,9 +164,23 @@
 		1893442626DCC8A500604A00 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1893442726DCCA2900604A00 /* Task.swift */,
+				18BE374B26E8F5860012176B /* Model.xcdatamodeld */,
+				18BE379226E8FE060012176B /* Persistence.swift */,
+				1893442726DCCA2900604A00 /* TaskOld.swift */,
+				18E669CB26E9EC9B00D66B40 /* Task+CoreDataClass.swift */,
+				18E669CC26E9EC9B00D66B40 /* Task+CoreDataProperties.swift */,
+				18E669C926E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift */,
+				18E669CA26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		18BE378F26E8FD430012176B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18BE379026E8FD430012176B /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,16 +256,22 @@
 				188D082C26DE210900D63C7C /* TasksViewModel.swift in Sources */,
 				1857E79026E2621D00E5EA00 /* ContentView.swift in Sources */,
 				1893441926DCC81000604A00 /* TasksView.swift in Sources */,
+				18E669D026E9EC9B00D66B40 /* Task+CoreDataProperties.swift in Sources */,
 				181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */,
 				1857E78B26E2072700E5EA00 /* DateIntervalCellView.swift in Sources */,
 				1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */,
-				1893442826DCCA2900604A00 /* Task.swift in Sources */,
+				1893442826DCCA2900604A00 /* TaskOld.swift in Sources */,
+				18E669CD26E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift in Sources */,
+				18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */,
+				18BE379326E8FE060012176B /* Persistence.swift in Sources */,
 				1857E79226E2647100E5EA00 /* TimerView.swift in Sources */,
 				1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */,
 				188D083026DE4CED00D63C7C /* PreviewData.swift in Sources */,
 				18306B5826E74A6D0095A076 /* Extensions.swift in Sources */,
 				1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */,
+				18E669CF26E9EC9B00D66B40 /* Task+CoreDataClass.swift in Sources */,
 				1893441726DCC81000604A00 /* VestaApp.swift in Sources */,
+				18E669CE26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift in Sources */,
 				181EE25326E649E9002BAB1A /* TaskSelectionView.swift in Sources */,
 				1893442A26DCFAF200604A00 /* TaskCellView.swift in Sources */,
 			);
@@ -363,6 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vesta/Vesta.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Vesta/Preview Content\"";
 				DEVELOPMENT_TEAM = 347QD86WM7;
@@ -386,6 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vesta/Vesta.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Vesta/Preview Content\"";
 				DEVELOPMENT_TEAM = 347QD86WM7;
@@ -426,6 +466,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		18BE374B26E8F5860012176B /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				18BE374C26E8F5860012176B /* Model.xcdatamodel */,
+			);
+			currentVersion = 18BE374C26E8F5860012176B /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1893440B26DCC81000604A00 /* Project object */;
 }

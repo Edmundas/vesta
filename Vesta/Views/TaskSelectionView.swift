@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct TaskSelectionView: View {
-    @Binding var tasks: [Task]
+    @Binding var tasks: [TaskOld]
     @Binding var selectedTaskId: UUID?
     
     let completion: (() -> Void)?
     
     @State private var showingAddTaskSheet = false
-    @State private var newTask: Task?
+    @State private var newTask: TaskOld?
     
-    init(tasks: Binding<[Task]>, selectedTaskId: Binding<UUID?>, completion: (() -> Void)? = nil) {
+    init(tasks: Binding<[TaskOld]>, selectedTaskId: Binding<UUID?>, completion: (() -> Void)? = nil) {
         self._tasks = tasks
         self._selectedTaskId = selectedTaskId
         self.completion = completion
