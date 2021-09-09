@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct TaskCellView: View {
-    let task: TaskOld
+    @State var task: Task
     
     var body: some View {
-        Text(task.title)
+        Text(task.title ?? "")
     }
 }
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCellView(task: previewTasks[0])
+        // TODO: set up preview data
+        TaskCellView(task: Task())
             .previewLayout(.sizeThatFits)
     }
 }

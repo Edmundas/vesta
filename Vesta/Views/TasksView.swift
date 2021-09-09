@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct TasksView: View {
-//    @Binding var tasks: [TaskOld]
-    
-//    @State private var editMode: EditMode = .inactive
-//    @State private var showingAddTaskSheet = false
-//    @State private var newTask: TaskOld?
+    @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
         entity: Task.entity(),
@@ -20,59 +16,46 @@ struct TasksView: View {
             NSSortDescriptor(keyPath: \Task.userOrder, ascending: true),
             NSSortDescriptor(keyPath: \Task.title, ascending: true)
         ]
-    ) var tasksX: FetchedResults<Task>
+    ) var tasks: FetchedResults<Task>
+    
+    @State private var showingAddTaskSheet = false
     
     var body: some View {
-        List(tasksX, id: \.self) { task in
-            Text(task.title ?? "Unknown")
+        List {
+            if tasks.isEmpty {
+                Label("The list is empty", systemImage: "exclamationmark.circle")
+            }
+            ForEach(tasks) { task in
+                // TODO: task cell ???
+                Text(task.title ?? "")
+            }
+            .onDelete(perform: { indexSet in
+                for index in indexSet {
+                    let task = tasks[index]
+                    managedObjectContext.delete(task)
+                }
+                
+                PersistenceController.shared.saveContext()
+            })
         }
-//        List {
-//            if tasks.isEmpty {
-//                Label("No tasks yet", systemImage: "exclamationmark.circle")
-//            }
-//            ForEach(tasks) { task in
-//                NavigationLink(destination: TaskDetailsView(task: binding(for: task))) {
-//                    TaskCellView(task: task)
-//                }
-//            }
-//            .onMove { from, to in
-//                tasks.move(fromOffsets: from, toOffset: to)
-//            }
-//            .onDelete { offsets in
-//                tasks.remove(atOffsets: offsets)
-//            }
-//        }
-//        .listStyle(InsetGroupedListStyle())
-//        .navigationTitle("Tasks")
-//        .navigationBarItems(leading: Button(action: {
-//            showingAddTaskSheet = true
-//        }) { Image(systemName: "plus") }.disabled(editMode.isEditing),
-//                            trailing: EditButton())
-//        .environment(\.editMode, $editMode)
-//        .sheet(isPresented: $showingAddTaskSheet) {
-//            NavigationView {
-//                ModifyTaskView(task: $newTask) {
-//                    if let task = newTask {
-//                        tasks.append(task)
-//                    }
-//                    newTask = nil
-//                    showingAddTaskSheet = false
-//                }
-//            }
-//        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Tasks")
+        .navigationBarItems(trailing: Button(action: { showingAddTaskSheet = true },
+                                             label: { Image(systemName: "plus") }))
+        .sheet(isPresented: $showingAddTaskSheet) {
+            NavigationView {
+                ModifyTaskView()
+                    .environment(\.managedObjectContext, self.managedObjectContext)
+            }
+        }
     }
-    
-//    private func binding(for task: TaskOld) -> Binding<TaskOld> {
-//        guard let taskIndex = tasks.firstIndex(where: { $0.id == task.id }) else {
-//            fatalError("Can't find task in array.")
-//        }
-//        return $tasks[taskIndex]
-//    }
 }
 
 struct TasksView_Previews: PreviewProvider {
+    static var persistanceController = PersistenceController.preview
+    
     static var previews: some View {
-//        TasksView(tasks: .constant(previewTasks))
         TasksView()
+            .environment(\.managedObjectContext, persistanceController.container.viewContext)
     }
 }

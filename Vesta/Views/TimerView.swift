@@ -95,25 +95,25 @@ struct TimerView: View {
 //        }
     }
     
-    private func recentTimerEntries(tasks: [TaskOld]) -> ([DateInterval], [TaskOld]) {
-        let numberOfEntries = 5
-        var recentEntries: [DateInterval] = []
-        var recentTasks: [TaskOld] = []
-        
-        for task in tasks {
-            for timeInterval in task.timeIntervals {
-                let index = recentEntries.insertionReverseIndex(of: timeInterval)
-                recentEntries.insert(timeInterval, at: index)
-                recentTasks.insert(task, at: index)
-                if recentEntries.count > numberOfEntries {
-                    recentEntries.remove(at: numberOfEntries)
-                    recentTasks.remove(at: numberOfEntries)
-                }
-            }
-        }
-        
-        return (recentEntries, recentTasks)
-    }
+//    private func recentTimerEntries(tasks: [TaskOld]) -> ([DateInterval], [TaskOld]) {
+//        let numberOfEntries = 5
+//        var recentEntries: [DateInterval] = []
+//        var recentTasks: [TaskOld] = []
+//
+//        for task in tasks {
+//            for timeInterval in task.timeIntervals {
+//                let index = recentEntries.insertionReverseIndex(of: timeInterval)
+//                recentEntries.insert(timeInterval, at: index)
+//                recentTasks.insert(task, at: index)
+//                if recentEntries.count > numberOfEntries {
+//                    recentEntries.remove(at: numberOfEntries)
+//                    recentTasks.remove(at: numberOfEntries)
+//                }
+//            }
+//        }
+//
+//        return (recentEntries, recentTasks)
+//    }
 }
 
 struct TimerView_Previews: PreviewProvider {

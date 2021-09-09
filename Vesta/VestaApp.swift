@@ -9,9 +9,6 @@ import SwiftUI
 
 @main
 struct VestaApp: App {
-//    @ObservedObject var tasksViewModel = TasksViewModel()
-//    @ObservedObject var stopWatch = StopWatch()
-    
     @Environment(\.scenePhase) private var scenePhase
     
     let persistenceController = PersistenceController.shared
@@ -20,12 +17,8 @@ struct VestaApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-//                .environmentObject(tasksViewModel)
-//                .environmentObject(stopWatch)
         }
-        .onChange(of: scenePhase) { phase in
-//            if phase == .active { tasksViewModel.load() }
-//            if phase == .inactive { tasksViewModel.save() }
+        .onChange(of: scenePhase) { _ in
             persistenceController.saveContext()
         }
     }
