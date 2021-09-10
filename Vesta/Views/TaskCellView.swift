@@ -18,6 +18,8 @@ struct TaskCellView: View {
     
     @State var task: Task
     @State private var timeEntry: TimeEntry?
+    @State private var timer: Timer?
+    @State private var secondsElapsed = 0.0
     
     var body: some View {
         HStack {
@@ -26,12 +28,14 @@ struct TaskCellView: View {
                     .font(.headline)
                     .padding(.bottom, 2.0)
                 
-                Text(DataFormatter.formattedDuration(duration: duration(timeEntries: task.timeEntries)))
+                Text(DataFormatter.formattedDuration(duration: duration(timeEntries: task.timeEntries) + secondsElapsed))
                     .font(.subheadline)
             }
             Spacer()
             Button(action: {
                 if timeEntry?.startDate != nil && timeEntry?.endDate == nil {
+                    stopTimer()
+                    
                     timeEntry!.endDate = Date()
                     timeEntry = nil
                 } else {
@@ -39,6 +43,8 @@ struct TaskCellView: View {
                     for activeTimeEntry in activeTimeEntries {
                         activeTimeEntry.endDate = Date()
                     }
+                    
+                    startTimer()
                     
                     timeEntry = TimeEntry(context: managedObjectContext)
                     timeEntry!.id = UUID()
@@ -57,6 +63,8 @@ struct TaskCellView: View {
         .padding(.vertical)
         .onChange(of: timeEntry?.endDate) { date in
             if date != nil {
+                stopTimer()
+                
                 timeEntry = nil
             }
         }
@@ -75,6 +83,17 @@ struct TaskCellView: View {
         }
         
         return dur
+    }
+    
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            secondsElapsed += 1
+        })
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        secondsElapsed = 0.0
     }
 }
 
