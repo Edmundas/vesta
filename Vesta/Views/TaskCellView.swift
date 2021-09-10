@@ -93,6 +93,7 @@ struct TaskCellView: View {
     
     private func stopTimer() {
         timer?.invalidate()
+        timer = nil
         secondsElapsed = 0.0
     }
 }
