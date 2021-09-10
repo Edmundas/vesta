@@ -14,7 +14,6 @@
 		1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */; };
 		1857E78B26E2072700E5EA00 /* DateIntervalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */; };
 		1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78D26E2384600E5EA00 /* ClearButton.swift */; };
-		1857E79026E2621D00E5EA00 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78F26E2621D00E5EA00 /* ContentView.swift */; };
 		1857E79226E2647100E5EA00 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E79126E2647100E5EA00 /* TimerView.swift */; };
 		1893441726DCC81000604A00 /* VestaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893441626DCC81000604A00 /* VestaApp.swift */; };
 		1893441926DCC81000604A00 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893441826DCC81000604A00 /* TasksView.swift */; };
@@ -25,6 +24,7 @@
 		18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18BE374B26E8F5860012176B /* Model.xcdatamodeld */; };
 		18BE379126E8FD430012176B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BE379026E8FD430012176B /* CloudKit.framework */; };
 		18BE379326E8FE060012176B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE379226E8FE060012176B /* Persistence.swift */; };
+		18C65F0326EA3D6D00CDC313 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C65F0226EA3D6D00CDC313 /* TasksViewModel.swift */; };
 		18E669CD26E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669C926E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift */; };
 		18E669CE26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669CA26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift */; };
 		18E669CF26E9EC9B00D66B40 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669CB26E9EC9B00D66B40 /* Task+CoreDataClass.swift */; };
@@ -39,7 +39,6 @@
 		1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsView.swift; sourceTree = "<group>"; };
 		1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntervalCellView.swift; sourceTree = "<group>"; };
 		1857E78D26E2384600E5EA00 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
-		1857E78F26E2621D00E5EA00 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1857E79126E2647100E5EA00 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		1893441326DCC81000604A00 /* Vesta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vesta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1893441626DCC81000604A00 /* VestaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestaApp.swift; sourceTree = "<group>"; };
@@ -53,6 +52,7 @@
 		18BE378E26E8FD3F0012176B /* Vesta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vesta.entitlements; sourceTree = "<group>"; };
 		18BE379026E8FD430012176B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		18BE379226E8FE060012176B /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		18C65F0226EA3D6D00CDC313 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		18E669C926E9EC9B00D66B40 /* TimeEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		18E669CA26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18E669CB26E9EC9B00D66B40 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -125,8 +125,8 @@
 		1893442526DCC89B00604A00 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1857E78F26E2621D00E5EA00 /* ContentView.swift */,
 				1893441826DCC81000604A00 /* TasksView.swift */,
+				18C65F0226EA3D6D00CDC313 /* TasksViewModel.swift */,
 				1857E79126E2647100E5EA00 /* TimerView.swift */,
 				1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */,
 				181EE25226E649E9002BAB1A /* TaskSelectionView.swift */,
@@ -228,7 +228,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				181EE24F26E608A8002BAB1A /* StopWatch.swift in Sources */,
-				1857E79026E2621D00E5EA00 /* ContentView.swift in Sources */,
 				1893441926DCC81000604A00 /* TasksView.swift in Sources */,
 				18E669D026E9EC9B00D66B40 /* Task+CoreDataProperties.swift in Sources */,
 				181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */,
@@ -239,6 +238,7 @@
 				18BE379326E8FE060012176B /* Persistence.swift in Sources */,
 				1857E79226E2647100E5EA00 /* TimerView.swift in Sources */,
 				1857E78926E1F5B100E5EA00 /* TaskDetailsView.swift in Sources */,
+				18C65F0326EA3D6D00CDC313 /* TasksViewModel.swift in Sources */,
 				18306B5826E74A6D0095A076 /* Extensions.swift in Sources */,
 				1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */,
 				18E669CF26E9EC9B00D66B40 /* Task+CoreDataClass.swift in Sources */,

@@ -18,16 +18,21 @@ struct TasksView: View {
         ]
     ) var tasks: FetchedResults<Task>
     
+//    @FetchRequest(
+//        entity: TimeEntry.entity(),
+//        sortDescriptors: []
+//    ) var timeEntries: FetchedResults<TimeEntry>
+    
     @State private var showingAddTaskSheet = false
     
     var body: some View {
+//        let _ = deleteAllTimeEntries()
         List {
             if tasks.isEmpty {
                 Label("The list is empty", systemImage: "exclamationmark.circle")
             }
             ForEach(tasks) { task in
-                // TODO: task cell ???
-                Text(task.title ?? "")
+                TaskCellView(task: task)
             }
             .onDelete(perform: { indexSet in
                 for index in indexSet {
@@ -49,6 +54,14 @@ struct TasksView: View {
             }
         }
     }
+    
+//    private func deleteAllTimeEntries() {
+//        for timeEntry in timeEntries {
+//            managedObjectContext.delete(timeEntry)
+//        }
+//
+//        PersistenceController.shared.saveContext()
+//    }
 }
 
 struct TasksView_Previews: PreviewProvider {

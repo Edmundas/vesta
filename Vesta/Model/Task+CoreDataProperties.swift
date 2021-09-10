@@ -19,7 +19,7 @@ extension Task {
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?
     @NSManaged public var userOrder: Int64
-    @NSManaged public var timeEntries: NSSet?
+    @NSManaged public var timeEntries: Set<TimeEntry>?
 
 }
 
