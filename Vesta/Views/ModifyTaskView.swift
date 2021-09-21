@@ -16,7 +16,13 @@ struct ModifyTaskView: View {
         sortDescriptors: []
     ) var tasks: FetchedResults<Task>
     
+    @State var task: Task?
     @State private var taskTitle = ""
+    
+    init(task: Task? = nil) {
+        _task = State(initialValue: task)
+        _taskTitle = State(initialValue: task?.title ?? "")
+    }
     
     var body: some View {
         List {
@@ -30,10 +36,14 @@ struct ModifyTaskView: View {
                 presentationMode.wrappedValue.dismiss()
             },
             trailing: Button("Save") {
-                let task = Task(context: managedObjectContext)
-                task.id = UUID()
-                task.title = taskTitle
-                task.userOrder = Int64(tasks.count + 1)
+                if let existingTask = task {
+                    existingTask.title = taskTitle
+                } else {
+                    let task = Task(context: managedObjectContext)
+                    task.id = UUID()
+                    task.title = taskTitle
+                    task.userOrder = Int64(tasks.count + 1)
+                }
                 
                 PersistenceController.shared.saveContext()
                 

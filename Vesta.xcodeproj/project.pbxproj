@@ -19,7 +19,7 @@
 		1893441926DCC81000604A00 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893441826DCC81000604A00 /* TasksView.swift */; };
 		1893441B26DCC81200604A00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893441A26DCC81200604A00 /* Assets.xcassets */; };
 		1893441E26DCC81200604A00 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893441D26DCC81200604A00 /* Preview Assets.xcassets */; };
-		1893442A26DCFAF200604A00 /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442926DCFAF200604A00 /* TaskCellView.swift */; };
+		1893442A26DCFAF200604A00 /* TaskTimerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442926DCFAF200604A00 /* TaskTimerCellView.swift */; };
 		1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442E26DD271C00604A00 /* ModifyTaskView.swift */; };
 		18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18BE374B26E8F5860012176B /* Model.xcdatamodeld */; };
 		18BE379126E8FD430012176B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BE379026E8FD430012176B /* CloudKit.framework */; };
@@ -46,7 +46,7 @@
 		1893441A26DCC81200604A00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1893441D26DCC81200604A00 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1893441F26DCC81200604A00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1893442926DCFAF200604A00 /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
+		1893442926DCFAF200604A00 /* TaskTimerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTimerCellView.swift; sourceTree = "<group>"; };
 		1893442E26DD271C00604A00 /* ModifyTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyTaskView.swift; sourceTree = "<group>"; };
 		18BE374C26E8F5860012176B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		18BE378E26E8FD3F0012176B /* Vesta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vesta.entitlements; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 				1857E78826E1F5B100E5EA00 /* TaskDetailsView.swift */,
 				181EE25226E649E9002BAB1A /* TaskSelectionView.swift */,
 				1893442E26DD271C00604A00 /* ModifyTaskView.swift */,
-				1893442926DCFAF200604A00 /* TaskCellView.swift */,
+				1893442926DCFAF200604A00 /* TaskTimerCellView.swift */,
 				1857E78A26E2072700E5EA00 /* DateIntervalCellView.swift */,
 			);
 			path = Views;
@@ -245,7 +245,7 @@
 				1893441726DCC81000604A00 /* VestaApp.swift in Sources */,
 				18E669CE26E9EC9B00D66B40 /* TimeEntry+CoreDataProperties.swift in Sources */,
 				181EE25326E649E9002BAB1A /* TaskSelectionView.swift in Sources */,
-				1893442A26DCFAF200604A00 /* TaskCellView.swift in Sources */,
+				1893442A26DCFAF200604A00 /* TaskTimerCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

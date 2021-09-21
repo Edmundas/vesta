@@ -23,6 +23,7 @@ struct TasksView: View {
 //        sortDescriptors: []
 //    ) var timeEntries: FetchedResults<TimeEntry>
     
+    @State private var editMode: EditMode = .inactive
     @State private var showingAddTaskSheet = false
     
     var body: some View {
@@ -32,21 +33,28 @@ struct TasksView: View {
                 Label("The list is empty", systemImage: "exclamationmark.circle")
             }
             ForEach(tasks) { task in
-                TaskCellView(task: task)
+                TaskTimerCellView(task: task)
+                    .environment(\.editMode, $editMode)
             }
+//            .onMove(perform: { from, to in
+//                // TODO: implement task reorder
+//                print("MOVE TASK")
+//            })
             .onDelete(perform: { indexSet in
                 for index in indexSet {
                     let task = tasks[index]
                     managedObjectContext.delete(task)
                 }
-                
+
                 PersistenceController.shared.saveContext()
             })
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Tasks")
-        .navigationBarItems(trailing: Button(action: { showingAddTaskSheet = true },
+        .navigationBarItems(leading: EditButton(),
+                            trailing: Button(action: { showingAddTaskSheet = true },
                                              label: { Image(systemName: "plus") }))
+        .environment(\.editMode, $editMode)
         .sheet(isPresented: $showingAddTaskSheet) {
             NavigationView {
                 ModifyTaskView()

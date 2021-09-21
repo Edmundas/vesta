@@ -1,5 +1,5 @@
 //
-//  TaskView.swift
+//  TaskTimerCellView.swift
 //  Vesta
 //
 //  Created by Edmundas Matusevicius on 2021-08-30.
@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct TaskCellView: View {
+struct TaskTimerCellView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.editMode) var editMode
     
     @FetchRequest(
         entity: TimeEntry.entity(),
@@ -20,6 +21,7 @@ struct TaskCellView: View {
     @State private var timeEntry: TimeEntry?
     @State private var timer: Timer?
     @State private var secondsElapsed = 0.0
+    @State private var showingEditTaskSheet = false
     
     var body: some View {
         HStack {
@@ -32,33 +34,43 @@ struct TaskCellView: View {
                     .font(.subheadline)
             }
             Spacer()
-            Button(action: {
-                if timeEntry?.startDate != nil && timeEntry?.endDate == nil {
-                    stopTimer()
-                    
-                    timeEntry!.endDate = Date()
-                    timeEntry = nil
-                } else {
-                    // Stop any running time entry
-                    for activeTimeEntry in activeTimeEntries {
-                        activeTimeEntry.endDate = Date()
+            if editMode?.wrappedValue.isEditing ?? true {
+                Button(action: {
+                    showingEditTaskSheet = true
+                }, label: {
+                    Image(systemName: "pencil")
+                        .foregroundColor(.accentColor)
+                })
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                Button(action: {
+                    if timeEntry?.startDate != nil && timeEntry?.endDate == nil {
+                        stopTimer()
+                        
+                        timeEntry!.endDate = Date()
+                        timeEntry = nil
+                    } else {
+                        // Stop any running time entry
+                        for activeTimeEntry in activeTimeEntries {
+                            activeTimeEntry.endDate = Date()
+                        }
+                        
+                        startTimer()
+                        
+                        timeEntry = TimeEntry(context: managedObjectContext)
+                        timeEntry!.id = UUID()
+                        timeEntry!.startDate = Date()
+                        timeEntry!.task = task
                     }
                     
-                    startTimer()
-                    
-                    timeEntry = TimeEntry(context: managedObjectContext)
-                    timeEntry!.id = UUID()
-                    timeEntry!.startDate = Date()
-                    timeEntry!.task = task
-                }
-                
-                PersistenceController.shared.saveContext()
-            }, label: {
-                Image(systemName: timeEntry?.startDate != nil ? "stop.circle.fill" : "play.circle.fill")
-                    .resizable(resizingMode: .stretch)
-                    .frame(width: 44.0, height: 44.0)
-                    .foregroundColor(timeEntry?.startDate != nil ? .red : .accentColor)
-            })
+                    PersistenceController.shared.saveContext()
+                }, label: {
+                    Image(systemName: timeEntry?.startDate != nil ? "stop.circle.fill" : "play.circle.fill")
+                        .resizable(resizingMode: .stretch)
+                        .frame(width: 44.0, height: 44.0)
+                        .foregroundColor(timeEntry?.startDate != nil ? .red : .accentColor)
+                })
+            }
         }
         .padding(.vertical)
         .onChange(of: timeEntry?.endDate) { date in
@@ -66,6 +78,12 @@ struct TaskCellView: View {
                 stopTimer()
                 
                 timeEntry = nil
+            }
+        }
+        .sheet(isPresented: $showingEditTaskSheet) {
+            NavigationView {
+                ModifyTaskView(task: task)
+                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
     }
@@ -108,7 +126,7 @@ struct TaskView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        TaskCellView(task: task)
+        TaskTimerCellView(task: task)
             .previewLayout(.sizeThatFits)
     }
 }
