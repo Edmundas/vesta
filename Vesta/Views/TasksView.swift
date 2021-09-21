@@ -36,10 +36,19 @@ struct TasksView: View {
                 TaskTimerCellView(task: task)
                     .environment(\.editMode, $editMode)
             }
-//            .onMove(perform: { from, to in
-//                // TODO: implement task reorder
-//                print("MOVE TASK")
-//            })
+            .onMove(perform: { from, to in
+                var revisedTasks: [Task] = tasks.map { $0 }
+                revisedTasks.move(fromOffsets: from, toOffset: to)
+                
+                // reorder items
+                for reverseIndex in stride(from: revisedTasks.count - 1,
+                                           through: 0,
+                                           by: -1) {
+                    revisedTasks[reverseIndex].userOrder = Int64(reverseIndex + 1)
+                }
+                
+                PersistenceController.shared.saveContext()
+            })
             .onDelete(perform: { indexSet in
                 for index in indexSet {
                     let task = tasks[index]
