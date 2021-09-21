@@ -17,7 +17,8 @@ struct TaskTimerCellView: View {
         predicate: NSPredicate(format: "endDate == %@", 0)
     ) var activeTimeEntries: FetchedResults<TimeEntry>
     
-    @State var task: Task
+    @ObservedObject var task: Task
+    
     @State private var timeEntry: TimeEntry?
     @State private var timer: Timer?
     @State private var secondsElapsed = 0.0

@@ -18,16 +18,10 @@ struct TasksView: View {
         ]
     ) var tasks: FetchedResults<Task>
     
-//    @FetchRequest(
-//        entity: TimeEntry.entity(),
-//        sortDescriptors: []
-//    ) var timeEntries: FetchedResults<TimeEntry>
-    
     @State private var editMode: EditMode = .inactive
     @State private var showingAddTaskSheet = false
     
     var body: some View {
-//        let _ = deleteAllTimeEntries()
         List {
             if tasks.isEmpty {
                 Label("The list is empty", systemImage: "exclamationmark.circle")
@@ -35,12 +29,12 @@ struct TasksView: View {
             ForEach(tasks) { task in
                 TaskTimerCellView(task: task)
                     .environment(\.editMode, $editMode)
+                    .deleteDisabled(editMode != .active)
             }
             .onMove(perform: { from, to in
                 var revisedTasks: [Task] = tasks.map { $0 }
                 revisedTasks.move(fromOffsets: from, toOffset: to)
                 
-                // reorder items
                 for reverseIndex in stride(from: revisedTasks.count - 1,
                                            through: 0,
                                            by: -1) {
@@ -71,14 +65,6 @@ struct TasksView: View {
             }
         }
     }
-    
-//    private func deleteAllTimeEntries() {
-//        for timeEntry in timeEntries {
-//            managedObjectContext.delete(timeEntry)
-//        }
-//
-//        PersistenceController.shared.saveContext()
-//    }
 }
 
 struct TasksView_Previews: PreviewProvider {

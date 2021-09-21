@@ -21,35 +21,7 @@ struct TimeEntriesView: View {
     var body: some View {
         List {
             ForEach (timeEntries) { timeEntry in
-                VStack(alignment: .leading) {
-                    if let task = timeEntry.task {
-                        Text(task.title ?? "")
-                            .font(.headline)
-                            .padding(.bottom, 2.0)
-                    }
-                    if let startDate = timeEntry.startDate {
-                        Text("\(DataFormatter.formattedDate(date: startDate)) \(DataFormatter.formattedTime(date: startDate))")
-                            .font(.subheadline)
-                    }
-                    if let endDate = timeEntry.endDate {
-                        Text("\(DataFormatter.formattedDate(date: endDate)) \(DataFormatter.formattedTime(date: endDate))")
-                            .font(.subheadline)
-                    } else {
-                        Text("-")
-                            .font(.subheadline)
-                    }
-                    if let startDate = timeEntry.startDate,
-                       let endDate = timeEntry.endDate {
-                        let dateInterval = DateInterval(start: startDate, end: endDate)
-                        Text(DataFormatter.formattedDuration(duration: dateInterval.duration))
-                            .font(.subheadline)
-                            .padding(.top, 2.0)
-                    } else {
-                        Text("-")
-                            .font(.subheadline)
-                            .padding(.top, 2.0)
-                    }
-                }
+                TimeEntryCellView(task: timeEntry.task ?? Task(context: managedObjectContext), timeEntry: timeEntry)
             }
             .onDelete(perform: { indexSet in
                 for index in indexSet {
