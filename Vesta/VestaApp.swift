@@ -26,6 +26,7 @@ struct VestaApp: App {
                 NavigationView {
                     TasksView()
                 }
+                .navigationViewStyle(.stack)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .tabItem {
                     Label("Tasks", systemImage: "list.triangle")
@@ -35,6 +36,7 @@ struct VestaApp: App {
                 NavigationView {
                     TimeEntriesView()
                 }
+                .navigationViewStyle(.stack)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .tabItem {
                     Label("Entries", systemImage: "clock")
