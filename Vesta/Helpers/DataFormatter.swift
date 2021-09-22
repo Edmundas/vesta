@@ -8,20 +8,6 @@
 import SwiftUI
 
 struct DataFormatter {
-    static func formattedDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    static func formattedTime(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .medium
-        
-        return dateFormatter.string(from: date)
-    }
-    
     static func formattedDuration(duration: Double) -> String {
         let s = Int(duration) % 60
         let m = Int(duration) / 60

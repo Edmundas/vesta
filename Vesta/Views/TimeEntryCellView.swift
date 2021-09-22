@@ -8,37 +8,74 @@
 import SwiftUI
 
 struct TimeEntryCellView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     @ObservedObject var task: Task
     @ObservedObject var timeEntry: TimeEntry
     
+    @State private var showingEditTimeEntrySheet = false
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(task.title ?? "")
-                .font(.headline)
+        HStack {
+            VStack(alignment: .leading) {
+                Text(task.title ?? "")
+                    .font(.headline)
+                    .padding(.vertical, 4.0)
+                
+                HStack {
+                    Text(formattedTimeInterval(timeEntry: timeEntry))
+                        .foregroundColor(.secondary)
+                    Text(" | ")
+                        .foregroundColor(.secondary)
+                    Text(formattedDuration(timeEntry: timeEntry))
+                }
+                .font(.subheadline)
                 .padding(.bottom, 2.0)
-            if let startDate = timeEntry.startDate {
-                Text("\(DataFormatter.formattedDate(date: startDate)) \(DataFormatter.formattedTime(date: startDate))")
-                    .font(.subheadline)
             }
-            if let endDate = timeEntry.endDate {
-                Text("\(DataFormatter.formattedDate(date: endDate)) \(DataFormatter.formattedTime(date: endDate))")
-                    .font(.subheadline)
-            } else {
-                Text("-")
-                    .font(.subheadline)
-            }
-            if let startDate = timeEntry.startDate,
-               let endDate = timeEntry.endDate {
-                let dateInterval = DateInterval(start: startDate, end: endDate)
-                Text(DataFormatter.formattedDuration(duration: dateInterval.duration))
-                    .font(.subheadline)
-                    .padding(.top, 2.0)
-            } else {
-                Text("-")
-                    .font(.subheadline)
-                    .padding(.top, 2.0)
+            Spacer()
+            Button(action: {
+                showingEditTimeEntrySheet = true
+            }, label: {
+                Image(systemName: "pencil")
+                    .foregroundColor(.accentColor)
+            })
+            .buttonStyle(PlainButtonStyle())
+        }
+        .sheet(isPresented: $showingEditTimeEntrySheet) {
+            NavigationView {
+                ModifyTimeEntryView(timeEntry: timeEntry)
+                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
+    }
+    
+    private func formattedTimeInterval(timeEntry: TimeEntry) -> String {
+        var startTimeString = "-"
+        var endTimeString = "-"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        
+        if let startDate = timeEntry.startDate {
+            startTimeString = dateFormatter.string(from: startDate)
+        }
+        if let endDate = timeEntry.endDate {
+            endTimeString = dateFormatter.string(from: endDate)
+        }
+        
+        return "\(startTimeString) - \(endTimeString)"
+    }
+    
+    private func formattedDuration(timeEntry: TimeEntry) -> String {
+        var durationString = "-"
+        
+        if let startDate = timeEntry.startDate,
+           let endDate = timeEntry.endDate {
+            let dateInterval = DateInterval(start: startDate, end: endDate)
+            durationString = DataFormatter.formattedDuration(duration: dateInterval.duration)
+        }
+        
+        return durationString
     }
 }
 
@@ -55,7 +92,7 @@ struct DateIntervalCellView_Previews: PreviewProvider {
     static var timeEntry: TimeEntry {
         let timeEntry = TimeEntry(context: PersistenceController.preview.container.viewContext)
         timeEntry.id = UUID()
-        timeEntry.startDate = Date(timeIntervalSinceNow: -3600)
+        timeEntry.startDate = Date(timeIntervalSinceNow: -1234)
         timeEntry.endDate = Date()
         timeEntry.task = task
         

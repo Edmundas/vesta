@@ -13,8 +13,8 @@ struct TimeEntriesView: View {
     @FetchRequest(
         entity: TimeEntry.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \TimeEntry.task?.userOrder, ascending: true),
-            NSSortDescriptor(keyPath: \TimeEntry.startDate, ascending: true)
+            NSSortDescriptor(keyPath: \TimeEntry.startDate, ascending: true),
+            NSSortDescriptor(keyPath: \TimeEntry.task?.userOrder, ascending: true)
         ]
     ) var timeEntries: FetchedResults<TimeEntry>
     
@@ -38,7 +38,10 @@ struct TimeEntriesView: View {
 }
 
 struct TimerView_Previews: PreviewProvider {
+    static var persistanceController = PersistenceController.preview
+    
     static var previews: some View {
         TimeEntriesView()
+            .environment(\.managedObjectContext, persistanceController.container.viewContext)
     }
 }

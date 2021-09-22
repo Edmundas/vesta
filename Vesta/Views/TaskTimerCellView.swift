@@ -45,22 +45,24 @@ struct TaskTimerCellView: View {
                 .buttonStyle(PlainButtonStyle())
             } else {
                 Button(action: {
+                    let currentDate = Date()
+                    
                     if timeEntry?.startDate != nil && timeEntry?.endDate == nil {
                         stopTimer()
                         
-                        timeEntry!.endDate = Date()
+                        timeEntry!.endDate = currentDate
                         timeEntry = nil
                     } else {
                         // Stop any running time entry
                         for activeTimeEntry in activeTimeEntries {
-                            activeTimeEntry.endDate = Date()
+                            activeTimeEntry.endDate = currentDate
                         }
                         
                         startTimer()
                         
                         timeEntry = TimeEntry(context: managedObjectContext)
                         timeEntry!.id = UUID()
-                        timeEntry!.startDate = Date()
+                        timeEntry!.startDate = currentDate
                         timeEntry!.task = task
                     }
                     
