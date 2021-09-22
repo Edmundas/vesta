@@ -18,7 +18,7 @@ struct TimeEntryCellView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(task.title ?? "")
+                Text(task.title)
                     .font(.headline)
                     .padding(.vertical, 4.0)
                 
@@ -56,9 +56,7 @@ struct TimeEntryCellView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
         
-        if let startDate = timeEntry.startDate {
-            startTimeString = dateFormatter.string(from: startDate)
-        }
+        startTimeString = dateFormatter.string(from: timeEntry.startDate)
         if let endDate = timeEntry.endDate {
             endTimeString = dateFormatter.string(from: endDate)
         }
@@ -69,9 +67,8 @@ struct TimeEntryCellView: View {
     private func formattedDuration(timeEntry: TimeEntry) -> String {
         var durationString = "-"
         
-        if let startDate = timeEntry.startDate,
-           let endDate = timeEntry.endDate {
-            let dateInterval = DateInterval(start: startDate, end: endDate)
+        if let endDate = timeEntry.endDate {
+            let dateInterval = DateInterval(start: timeEntry.startDate, end: endDate)
             durationString = DataFormatter.formattedDuration(duration: dateInterval.duration)
         }
         
@@ -82,16 +79,14 @@ struct TimeEntryCellView: View {
 struct DateIntervalCellView_Previews: PreviewProvider {
     static var task: Task {
         let task = Task(context: PersistenceController.preview.container.viewContext)
-        task.id = UUID()
         task.title = "Task title"
-        task.userOrder = Int64(1)
+        task.userOrder = Int16(1)
         
         return task
     }
     
     static var timeEntry: TimeEntry {
         let timeEntry = TimeEntry(context: PersistenceController.preview.container.viewContext)
-        timeEntry.id = UUID()
         timeEntry.startDate = Date(timeIntervalSinceNow: -1234)
         timeEntry.endDate = Date()
         timeEntry.task = task

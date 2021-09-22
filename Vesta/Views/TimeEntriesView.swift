@@ -20,6 +20,9 @@ struct TimeEntriesView: View {
     
     var body: some View {
         List {
+            if timeEntries.isEmpty {
+                Label("The list is empty", systemImage: "exclamationmark.circle")
+            }
             ForEach (timeEntries) { timeEntry in
                 TimeEntryCellView(task: timeEntry.task ?? Task(context: managedObjectContext), timeEntry: timeEntry)
             }

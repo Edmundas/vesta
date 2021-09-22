@@ -18,9 +18,7 @@ struct ModifyTimeEntryView: View {
     
     init(timeEntry: TimeEntry) {
         _timeEntry = State(initialValue: timeEntry)
-        if let sDate = timeEntry.startDate {
-            _startDate = State(initialValue: sDate)
-        }
+        _startDate = State(initialValue: timeEntry.startDate)
         if let eDate = timeEntry.endDate {
             _endDate = State(initialValue: eDate)
         }
@@ -33,24 +31,15 @@ struct ModifyTimeEntryView: View {
                     Text("Task")
                         .foregroundColor(.secondary)
                     Spacer()
-                    Text(task.title ?? "-")
+                    Text(task.title)
                 }
             }
-            if timeEntry.startDate != nil {
-                DatePicker(
-                    selection: $startDate,
-                    displayedComponents: [.hourAndMinute]
-                ) {
-                    Text("Start Date")
-                        .foregroundColor(.secondary)
-                }
-            } else {
-                HStack {
-                    Text("Start Date")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("--:--")
-                }
+            DatePicker(
+                selection: $startDate,
+                displayedComponents: [.hourAndMinute]
+            ) {
+                Text("Start Date")
+                    .foregroundColor(.secondary)
             }
             if timeEntry.endDate != nil {
                 DatePicker(
@@ -72,7 +61,7 @@ struct ModifyTimeEntryView: View {
                 Text("Duration")
                     .foregroundColor(.secondary)
                 Spacer()
-                if timeEntry.startDate != nil && timeEntry.endDate != nil && startDate < endDate {
+                if timeEntry.endDate != nil && startDate < endDate {
                     Text(formattedDuration(startDate: startDate, endDate: endDate))
                 } else {
                     Text("--:--:--")
@@ -81,7 +70,7 @@ struct ModifyTimeEntryView: View {
             .onChange(of: startDate) { newValue in
                 let calendar = Calendar.current
                 let newComponents = calendar.dateComponents([.hour, .minute], from: newValue)
-                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeEntry.startDate!)
+                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeEntry.startDate)
                 
                 oldComponents.hour = newComponents.hour
                 oldComponents.minute = newComponents.minute
@@ -110,9 +99,7 @@ struct ModifyTimeEntryView: View {
                 presentationMode.wrappedValue.dismiss()
             },
             trailing: Button("Save") {
-                if timeEntry.startDate != nil {
-                    timeEntry.startDate = startDate
-                }
+                timeEntry.startDate = startDate
                 if timeEntry.endDate != nil {
                     timeEntry.endDate = endDate
                 }
@@ -135,16 +122,14 @@ struct ModifyTimeEntryView: View {
 struct ModifyTimeEntryView_Previews: PreviewProvider {
     static var task: Task {
         let task = Task(context: PersistenceController.preview.container.viewContext)
-        task.id = UUID()
         task.title = "The Task"
-        task.userOrder = Int64(1)
+        task.userOrder = Int16(1)
 
         return task
     }
 
     static var timeEntry: TimeEntry {
         let timeEntry = TimeEntry(context: PersistenceController.preview.container.viewContext)
-        timeEntry.id = UUID()
         timeEntry.startDate = Date(timeIntervalSinceNow: -1234)
         timeEntry.endDate = Date()
         timeEntry.task = task

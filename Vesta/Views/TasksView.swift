@@ -38,7 +38,7 @@ struct TasksView: View {
                 for reverseIndex in stride(from: revisedTasks.count - 1,
                                            through: 0,
                                            by: -1) {
-                    revisedTasks[reverseIndex].userOrder = Int64(reverseIndex + 1)
+                    revisedTasks[reverseIndex].userOrder = Int16(reverseIndex + 1)
                 }
                 
                 PersistenceController.shared.saveContext()

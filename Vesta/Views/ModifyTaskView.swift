@@ -40,9 +40,8 @@ struct ModifyTaskView: View {
                     existingTask.title = taskTitle
                 } else {
                     let task = Task(context: managedObjectContext)
-                    task.id = UUID()
                     task.title = taskTitle
-                    task.userOrder = Int64(tasks.count + 1)
+                    task.userOrder = Int16(tasks.count + 1)
                 }
                 
                 PersistenceController.shared.saveContext()

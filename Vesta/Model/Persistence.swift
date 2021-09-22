@@ -15,9 +15,8 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         for index in 0..<10 {
             let newTask = Task(context: viewContext)
-            newTask.id = UUID()
             newTask.title = "Task #\(index + 1)"
-            newTask.userOrder = Int64(index + 1)
+            newTask.userOrder = Int16(index + 1)
         }
         do {
             try viewContext.save()

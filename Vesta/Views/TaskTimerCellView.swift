@@ -27,7 +27,7 @@ struct TaskTimerCellView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(task.title ?? "")
+                Text(task.title)
                     .font(.headline)
                     .padding(.bottom, 2.0)
                 
@@ -45,25 +45,21 @@ struct TaskTimerCellView: View {
                 .buttonStyle(PlainButtonStyle())
             } else {
                 Button(action: {
-                    let currentDate = Date()
-                    
                     if timeEntry?.startDate != nil && timeEntry?.endDate == nil {
                         stopTimer()
                         
-                        timeEntry!.endDate = currentDate
+                        timeEntry!.endDate = Date()
                         timeEntry = nil
                     } else {
+                        timeEntry = TimeEntry(context: managedObjectContext)
+                        timeEntry!.task = task
+                        
                         // Stop any running time entry
                         for activeTimeEntry in activeTimeEntries {
-                            activeTimeEntry.endDate = currentDate
+                            activeTimeEntry.endDate = timeEntry!.startDate
                         }
                         
                         startTimer()
-                        
-                        timeEntry = TimeEntry(context: managedObjectContext)
-                        timeEntry!.id = UUID()
-                        timeEntry!.startDate = currentDate
-                        timeEntry!.task = task
                     }
                     
                     PersistenceController.shared.saveContext()
@@ -95,11 +91,9 @@ struct TaskTimerCellView: View {
         var dur = 0.0
         
         for timeEntry in timeEntries ?? Set<TimeEntry>() {
-            if let startDate = timeEntry.startDate {
-                if let endDate = timeEntry.endDate {
-                    let durInterval = DateInterval(start: startDate, end: endDate)
-                    dur += durInterval.duration
-                }
+            if let endDate = timeEntry.endDate {
+                let durInterval = DateInterval(start: timeEntry.startDate, end: endDate)
+                dur += durInterval.duration
             }
         }
         
@@ -121,11 +115,11 @@ struct TaskTimerCellView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var task: Task {
-        let x = Task(context: PersistenceController.preview.container.viewContext)
-        x.id = UUID()
-        x.title = "Task title"
-        x.userOrder = Int64(1)
-        return x
+        let task = Task(context: PersistenceController.preview.container.viewContext)
+        task.title = "Task title"
+        task.userOrder = Int16(1)
+        
+        return task
     }
     
     static var previews: some View {
