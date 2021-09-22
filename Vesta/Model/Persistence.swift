@@ -13,11 +13,13 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
+        // --- ▽▽▽ --- Preview data --- ▽▽▽ ---
         for index in 0..<10 {
             let newTask = Task(context: viewContext)
             newTask.title = "Task #\(index + 1)"
             newTask.userOrder = Int16(index + 1)
         }
+        // --- △△△ --- Preview data --- △△△ ---
         do {
             try viewContext.save()
         } catch {
