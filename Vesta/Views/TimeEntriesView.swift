@@ -10,13 +10,8 @@ import SwiftUI
 struct TimeEntriesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest(
-        entity: CDTimeEntry.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \CDTimeEntry.startDate, ascending: true),
-            NSSortDescriptor(keyPath: \CDTimeEntry.task?.userOrder, ascending: true)
-        ]
-    ) var timeEntries: FetchedResults<CDTimeEntry>
+    @FetchRequest(fetchRequest: CDTimeEntry.fetchRequest())
+    private var timeEntries: FetchedResults<CDTimeEntry>
     
     var body: some View {
         List {

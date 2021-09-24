@@ -11,15 +11,6 @@ import CoreData
 
 @objc(CDTimeEntry)
 public class CDTimeEntry: NSManagedObject {
-
-}
-
-extension CDTimeEntry {
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDTimeEntry> {
-        return NSFetchRequest<CDTimeEntry>(entityName: "TimeEntry")
-    }
-    
     @NSManaged public var id: UUID?
     @NSManaged public var startDate: Date
     @NSManaged public var endDate: Date?
@@ -27,13 +18,20 @@ extension CDTimeEntry {
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        
         id = UUID()
         startDate = Date()
     }
-
 }
 
-extension CDTimeEntry : Identifiable {
-
+extension CDTimeEntry {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDTimeEntry> {
+        let request = NSFetchRequest<CDTimeEntry>(entityName: "CDTimeEntry")
+        request.sortDescriptors = [
+            NSSortDescriptor(keyPath: \CDTimeEntry.startDate, ascending: true),
+            NSSortDescriptor(keyPath: \CDTimeEntry.task?.userOrder, ascending: true)
+        ]
+        return request
+    }
 }
+
+extension CDTimeEntry : Identifiable { }

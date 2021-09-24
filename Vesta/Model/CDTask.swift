@@ -11,15 +11,6 @@ import CoreData
 
 @objc(CDTask)
 public class CDTask: NSManagedObject {
-
-}
-
-extension CDTask {
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDTask> {
-        return NSFetchRequest<CDTask>(entityName: "Task")
-    }
-
     @NSManaged public var id: UUID?
     @NSManaged public var title: String
     @NSManaged public var userOrder: Int16
@@ -27,12 +18,19 @@ extension CDTask {
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        
         id = UUID()
     }
-
 }
 
-extension CDTask : Identifiable {
-
+extension CDTask {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDTask> {
+        let request = NSFetchRequest<CDTask>(entityName: "CDTask")
+        request.sortDescriptors = [
+            NSSortDescriptor(keyPath: \CDTask.userOrder, ascending: true),
+            NSSortDescriptor(keyPath: \CDTask.title, ascending: true)
+        ]
+        return request
+    }
 }
+
+extension CDTask : Identifiable { }

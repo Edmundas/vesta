@@ -10,13 +10,8 @@ import SwiftUI
 struct TasksView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest(
-        entity: CDTask.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \CDTask.userOrder, ascending: true),
-            NSSortDescriptor(keyPath: \CDTask.title, ascending: true)
-        ]
-    ) var tasks: FetchedResults<CDTask>
+    @FetchRequest(fetchRequest: CDTask.fetchRequest())
+    private var tasks: FetchedResults<CDTask>
     
     @State private var editMode: EditMode = .inactive
     @State private var showingAddTaskSheet = false
