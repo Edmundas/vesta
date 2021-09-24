@@ -11,7 +11,7 @@ import CoreData
 
 @objc(CDTask)
 public class CDTask: NSManagedObject {
-    @NSManaged public var id: UUID?
+    @NSManaged public var id: UUID
     @NSManaged public var title: String
     @NSManaged public var userOrder: Int16
     @NSManaged public var timeEntries: Set<CDTimeEntry>?
