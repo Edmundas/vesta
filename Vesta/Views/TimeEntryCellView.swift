@@ -21,12 +21,14 @@ struct TimeEntryCellView: View {
                 Text(task.title)
                     .font(.headline)
                     .padding(.vertical, 4.0)
-                
                 HStack {
-                    Text(formattedTimeInterval(timeEntry: timeEntry))
-                        .foregroundColor(.secondary)
-                    Text(" | ")
-                        .foregroundColor(.secondary)
+                    Group {
+                        Text(formattedDate(timeEntry: timeEntry))
+                        Text(" | ")
+                        Text(formattedTimeInterval(timeEntry: timeEntry))
+                        Text(" | ")
+                    }
+                    .foregroundColor(.secondary)
                     Text(formattedDuration(timeEntry: timeEntry))
                 }
                 .font(.subheadline)
@@ -47,6 +49,13 @@ struct TimeEntryCellView: View {
                     .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
+    }
+    
+    private func formattedDate(timeEntry: TimeEntry) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd"
+        
+        return dateFormatter.string(from: timeEntry.startDate)
     }
     
     private func formattedTimeInterval(timeEntry: TimeEntry) -> String {

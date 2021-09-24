@@ -45,7 +45,7 @@ struct TaskTimerCellView: View {
                 .buttonStyle(PlainButtonStyle())
             } else {
                 Button(action: {
-                    if timeEntry?.startDate != nil && timeEntry?.endDate == nil {
+                    if timeEntry != nil && timeEntry!.endDate == nil {
                         stopTimer()
                         
                         timeEntry!.endDate = Date()

@@ -32,6 +32,7 @@ struct ModifyTimeEntryView: View {
                         .foregroundColor(.secondary)
                     Spacer()
                     Text(task.title)
+                        .foregroundColor(.secondary)
                 }
             }
             DatePicker(
@@ -63,14 +64,16 @@ struct ModifyTimeEntryView: View {
                 Spacer()
                 if timeEntry.endDate != nil && startDate < endDate {
                     Text(formattedDuration(startDate: startDate, endDate: endDate))
+                        .foregroundColor(.secondary)
                 } else {
                     Text("--:--:--")
+                        .foregroundColor(.secondary)
                 }
             }
             .onChange(of: startDate) { newValue in
                 let calendar = Calendar.current
                 let newComponents = calendar.dateComponents([.hour, .minute], from: newValue)
-                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeEntry.startDate)
+                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: timeEntry.startDate)
                 
                 oldComponents.hour = newComponents.hour
                 oldComponents.minute = newComponents.minute
@@ -82,7 +85,7 @@ struct ModifyTimeEntryView: View {
             .onChange(of: endDate) { newValue in
                 let calendar = Calendar.current
                 let newComponents = calendar.dateComponents([.hour, .minute], from: newValue)
-                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeEntry.endDate!)
+                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: timeEntry.endDate!)
                 
                 oldComponents.hour = newComponents.hour
                 oldComponents.minute = newComponents.minute
