@@ -12,14 +12,14 @@ struct TaskTimerCellView: View {
     @Environment(\.editMode) var editMode
     
     @FetchRequest(
-        entity: TimeEntry.entity(),
+        entity: CDTimeEntry.entity(),
         sortDescriptors: [],
         predicate: NSPredicate(format: "endDate == %@", 0)
-    ) var activeTimeEntries: FetchedResults<TimeEntry>
+    ) var activeTimeEntries: FetchedResults<CDTimeEntry>
     
-    @ObservedObject var task: Task
+    @ObservedObject var task: CDTask
     
-    @State private var timeEntry: TimeEntry?
+    @State private var timeEntry: CDTimeEntry?
     @State private var timer: Timer?
     @State private var secondsElapsed = 0.0
     @State private var showingEditTaskSheet = false
@@ -51,7 +51,7 @@ struct TaskTimerCellView: View {
                         timeEntry!.endDate = Date()
                         timeEntry = nil
                     } else {
-                        timeEntry = TimeEntry(context: managedObjectContext)
+                        timeEntry = CDTimeEntry(context: managedObjectContext)
                         timeEntry!.task = task
                         
                         // Stop any running time entry
@@ -87,10 +87,10 @@ struct TaskTimerCellView: View {
         }
     }
     
-    private func duration(timeEntries: Set<TimeEntry>?) -> Double {
+    private func duration(timeEntries: Set<CDTimeEntry>?) -> Double {
         var dur = 0.0
         
-        for timeEntry in timeEntries ?? Set<TimeEntry>() {
+        for timeEntry in timeEntries ?? Set<CDTimeEntry>() {
             if let endDate = timeEntry.endDate {
                 let durInterval = DateInterval(start: timeEntry.startDate, end: endDate)
                 dur += durInterval.duration
@@ -114,8 +114,8 @@ struct TaskTimerCellView: View {
 }
 
 struct TaskView_Previews: PreviewProvider {
-    static var task: Task {
-        let task = Task(context: PersistenceController.preview.container.viewContext)
+    static var task: CDTask {
+        let task = CDTask(context: PersistenceController.preview.container.viewContext)
         task.title = "Task title"
         task.userOrder = Int16(1)
         

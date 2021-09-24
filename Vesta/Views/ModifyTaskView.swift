@@ -12,14 +12,14 @@ struct ModifyTaskView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
-        entity: Task.entity(),
+        entity: CDTask.entity(),
         sortDescriptors: []
-    ) var tasks: FetchedResults<Task>
+    ) var tasks: FetchedResults<CDTask>
     
-    @State var task: Task?
+    @State var task: CDTask?
     @State private var taskTitle = ""
     
-    init(task: Task? = nil) {
+    init(task: CDTask? = nil) {
         _task = State(initialValue: task)
         _taskTitle = State(initialValue: task?.title ?? "")
     }
@@ -39,7 +39,7 @@ struct ModifyTaskView: View {
                 if let existingTask = task {
                     existingTask.title = taskTitle
                 } else {
-                    let task = Task(context: managedObjectContext)
+                    let task = CDTask(context: managedObjectContext)
                     task.title = taskTitle
                     task.userOrder = Int16(tasks.count + 1)
                 }

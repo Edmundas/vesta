@@ -11,12 +11,12 @@ struct ModifyTimeEntryView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @State var timeEntry: TimeEntry
+    @State var timeEntry: CDTimeEntry
     
     @State private var startDate = Date()
     @State private var endDate = Date()
     
-    init(timeEntry: TimeEntry) {
+    init(timeEntry: CDTimeEntry) {
         _timeEntry = State(initialValue: timeEntry)
         _startDate = State(initialValue: timeEntry.startDate)
         if let eDate = timeEntry.endDate {
@@ -123,16 +123,16 @@ struct ModifyTimeEntryView: View {
 }
 
 struct ModifyTimeEntryView_Previews: PreviewProvider {
-    static var task: Task {
-        let task = Task(context: PersistenceController.preview.container.viewContext)
+    static var task: CDTask {
+        let task = CDTask(context: PersistenceController.preview.container.viewContext)
         task.title = "The Task"
         task.userOrder = Int16(1)
 
         return task
     }
 
-    static var timeEntry: TimeEntry {
-        let timeEntry = TimeEntry(context: PersistenceController.preview.container.viewContext)
+    static var timeEntry: CDTimeEntry {
+        let timeEntry = CDTimeEntry(context: PersistenceController.preview.container.viewContext)
         timeEntry.startDate = Date(timeIntervalSinceNow: -1234)
         timeEntry.endDate = Date()
         timeEntry.task = task

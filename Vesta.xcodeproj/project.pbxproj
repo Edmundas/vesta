@@ -23,8 +23,8 @@
 		18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18BE374B26E8F5860012176B /* Model.xcdatamodeld */; };
 		18BE379126E8FD430012176B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BE379026E8FD430012176B /* CloudKit.framework */; };
 		18BE379326E8FE060012176B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE379226E8FE060012176B /* Persistence.swift */; };
-		18E669CD26E9EC9B00D66B40 /* TimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669C926E9EC9B00D66B40 /* TimeEntry.swift */; };
-		18E669CF26E9EC9B00D66B40 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669CB26E9EC9B00D66B40 /* Task.swift */; };
+		18E669CD26E9EC9B00D66B40 /* CDTimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669C926E9EC9B00D66B40 /* CDTimeEntry.swift */; };
+		18E669CF26E9EC9B00D66B40 /* CDTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E669CB26E9EC9B00D66B40 /* CDTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,8 +47,8 @@
 		18BE378E26E8FD3F0012176B /* Vesta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vesta.entitlements; sourceTree = "<group>"; };
 		18BE379026E8FD430012176B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		18BE379226E8FE060012176B /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		18E669C926E9EC9B00D66B40 /* TimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntry.swift; sourceTree = "<group>"; };
-		18E669CB26E9EC9B00D66B40 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		18E669C926E9EC9B00D66B40 /* CDTimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTimeEntry.swift; sourceTree = "<group>"; };
+		18E669CB26E9EC9B00D66B40 /* CDTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +98,9 @@
 				1893442526DCC89B00604A00 /* Views */,
 				1893442626DCC8A500604A00 /* Model */,
 				1857E78C26E2382F00E5EA00 /* Helpers */,
-				1893441A26DCC81200604A00 /* Assets.xcassets */,
 				1893441F26DCC81200604A00 /* Info.plist */,
 				18BE378E26E8FD3F0012176B /* Vesta.entitlements */,
+				1893441A26DCC81200604A00 /* Assets.xcassets */,
 				1893441C26DCC81200604A00 /* Preview Content */,
 			);
 			path = Vesta;
@@ -132,8 +132,8 @@
 			children = (
 				18BE374B26E8F5860012176B /* Model.xcdatamodeld */,
 				18BE379226E8FE060012176B /* Persistence.swift */,
-				18E669CB26E9EC9B00D66B40 /* Task.swift */,
-				18E669C926E9EC9B00D66B40 /* TimeEntry.swift */,
+				18E669CB26E9EC9B00D66B40 /* CDTask.swift */,
+				18E669C926E9EC9B00D66B40 /* CDTimeEntry.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,14 +220,14 @@
 				181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */,
 				1857E78B26E2072700E5EA00 /* TimeEntryCellView.swift in Sources */,
 				1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */,
-				18E669CD26E9EC9B00D66B40 /* TimeEntry.swift in Sources */,
+				18E669CD26E9EC9B00D66B40 /* CDTimeEntry.swift in Sources */,
 				18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */,
 				18BE379326E8FE060012176B /* Persistence.swift in Sources */,
 				1857E79226E2647100E5EA00 /* TimeEntriesView.swift in Sources */,
 				1857E78926E1F5B100E5EA00 /* ModifyTimeEntryView.swift in Sources */,
 				18306B5826E74A6D0095A076 /* Extensions.swift in Sources */,
 				1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */,
-				18E669CF26E9EC9B00D66B40 /* Task.swift in Sources */,
+				18E669CF26E9EC9B00D66B40 /* CDTask.swift in Sources */,
 				1893441726DCC81000604A00 /* VestaApp.swift in Sources */,
 				1893442A26DCFAF200604A00 /* TaskTimerCellView.swift in Sources */,
 			);

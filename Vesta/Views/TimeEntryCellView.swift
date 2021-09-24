@@ -10,8 +10,8 @@ import SwiftUI
 struct TimeEntryCellView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @ObservedObject var task: Task
-    @ObservedObject var timeEntry: TimeEntry
+    @ObservedObject var task: CDTask
+    @ObservedObject var timeEntry: CDTimeEntry
     
     @State private var showingEditTimeEntrySheet = false
     
@@ -51,14 +51,14 @@ struct TimeEntryCellView: View {
         }
     }
     
-    private func formattedDate(timeEntry: TimeEntry) -> String {
+    private func formattedDate(timeEntry: CDTimeEntry) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd"
         
         return dateFormatter.string(from: timeEntry.startDate)
     }
     
-    private func formattedTimeInterval(timeEntry: TimeEntry) -> String {
+    private func formattedTimeInterval(timeEntry: CDTimeEntry) -> String {
         var startTimeString = "-"
         var endTimeString = "-"
         
@@ -73,7 +73,7 @@ struct TimeEntryCellView: View {
         return "\(startTimeString) - \(endTimeString)"
     }
     
-    private func formattedDuration(timeEntry: TimeEntry) -> String {
+    private func formattedDuration(timeEntry: CDTimeEntry) -> String {
         var durationString = "-"
         
         if let endDate = timeEntry.endDate {
@@ -86,16 +86,16 @@ struct TimeEntryCellView: View {
 }
 
 struct DateIntervalCellView_Previews: PreviewProvider {
-    static var task: Task {
-        let task = Task(context: PersistenceController.preview.container.viewContext)
+    static var task: CDTask {
+        let task = CDTask(context: PersistenceController.preview.container.viewContext)
         task.title = "Task title"
         task.userOrder = Int16(1)
         
         return task
     }
     
-    static var timeEntry: TimeEntry {
-        let timeEntry = TimeEntry(context: PersistenceController.preview.container.viewContext)
+    static var timeEntry: CDTimeEntry {
+        let timeEntry = CDTimeEntry(context: PersistenceController.preview.container.viewContext)
         timeEntry.startDate = Date(timeIntervalSinceNow: -1234)
         timeEntry.endDate = Date()
         timeEntry.task = task

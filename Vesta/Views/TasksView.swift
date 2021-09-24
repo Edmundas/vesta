@@ -11,12 +11,12 @@ struct TasksView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
-        entity: Task.entity(),
+        entity: CDTask.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \Task.userOrder, ascending: true),
-            NSSortDescriptor(keyPath: \Task.title, ascending: true)
+            NSSortDescriptor(keyPath: \CDTask.userOrder, ascending: true),
+            NSSortDescriptor(keyPath: \CDTask.title, ascending: true)
         ]
-    ) var tasks: FetchedResults<Task>
+    ) var tasks: FetchedResults<CDTask>
     
     @State private var editMode: EditMode = .inactive
     @State private var showingAddTaskSheet = false
@@ -32,7 +32,7 @@ struct TasksView: View {
                     .deleteDisabled(editMode != .active)
             }
             .onMove(perform: { from, to in
-                var revisedTasks: [Task] = tasks.map { $0 }
+                var revisedTasks: [CDTask] = tasks.map { $0 }
                 revisedTasks.move(fromOffsets: from, toOffset: to)
                 
                 for reverseIndex in stride(from: revisedTasks.count - 1,

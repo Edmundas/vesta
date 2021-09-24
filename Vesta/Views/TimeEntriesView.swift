@@ -11,12 +11,12 @@ struct TimeEntriesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
-        entity: TimeEntry.entity(),
+        entity: CDTimeEntry.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \TimeEntry.startDate, ascending: true),
-            NSSortDescriptor(keyPath: \TimeEntry.task?.userOrder, ascending: true)
+            NSSortDescriptor(keyPath: \CDTimeEntry.startDate, ascending: true),
+            NSSortDescriptor(keyPath: \CDTimeEntry.task?.userOrder, ascending: true)
         ]
-    ) var timeEntries: FetchedResults<TimeEntry>
+    ) var timeEntries: FetchedResults<CDTimeEntry>
     
     var body: some View {
         List {
@@ -24,7 +24,7 @@ struct TimeEntriesView: View {
                 Label("The list is empty", systemImage: "exclamationmark.circle")
             }
             ForEach (timeEntries) { timeEntry in
-                TimeEntryCellView(task: timeEntry.task ?? Task(context: managedObjectContext), timeEntry: timeEntry)
+                TimeEntryCellView(task: timeEntry.task ?? CDTask(context: managedObjectContext), timeEntry: timeEntry)
             }
             .onDelete(perform: { indexSet in
                 for index in indexSet {

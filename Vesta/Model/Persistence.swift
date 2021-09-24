@@ -15,7 +15,7 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         // --- ▽▽▽ --- Preview data --- ▽▽▽ ---
         for index in 0..<10 {
-            let newTask = Task(context: viewContext)
+            let newTask = CDTask(context: viewContext)
             newTask.title = "Task #\(index + 1)"
             newTask.userOrder = Int16(index + 1)
         }

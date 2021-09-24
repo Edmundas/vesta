@@ -9,21 +9,21 @@
 import Foundation
 import CoreData
 
-@objc(Task)
-public class Task: NSManagedObject {
+@objc(CDTask)
+public class CDTask: NSManagedObject {
 
 }
 
-extension Task {
+extension CDTask {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
-        return NSFetchRequest<Task>(entityName: "Task")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDTask> {
+        return NSFetchRequest<CDTask>(entityName: "Task")
     }
 
     @NSManaged public var id: UUID?
     @NSManaged public var title: String
     @NSManaged public var userOrder: Int16
-    @NSManaged public var timeEntries: Set<TimeEntry>?
+    @NSManaged public var timeEntries: Set<CDTimeEntry>?
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -33,6 +33,6 @@ extension Task {
 
 }
 
-extension Task : Identifiable {
+extension CDTask : Identifiable {
 
 }
