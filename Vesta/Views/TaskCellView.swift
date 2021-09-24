@@ -1,5 +1,5 @@
 //
-//  TaskTimerCellView.swift
+//  TaskCellView.swift
 //  Vesta
 //
 //  Created by Edmundas Matusevicius on 2021-08-30.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskTimerCellView: View {
+struct TaskCellView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.editMode) var editMode
     
@@ -18,6 +18,8 @@ struct TaskTimerCellView: View {
     ) var activeTimeEntries: FetchedResults<CDTimeEntry>
     
     @ObservedObject var task: CDTask
+    
+    @StateObject private var viewModel = TaskCellViewModel()
     
     @State private var timeEntry: CDTimeEntry?
     @State private var timer: Timer?
@@ -45,6 +47,12 @@ struct TaskTimerCellView: View {
                 .buttonStyle(PlainButtonStyle())
             } else {
                 Button(action: {
+//                    if viewModel.taskRunning {
+//                        viewModel.stop(task: task)
+//                    } else {
+//                        viewModel.start(task: task)
+//                    }
+                    
                     if timeEntry != nil && timeEntry!.endDate == nil {
                         stopTimer()
                         
@@ -73,6 +81,10 @@ struct TaskTimerCellView: View {
                         .resizable(resizingMode: .stretch)
                         .frame(width: 44.0, height: 44.0)
                         .foregroundColor(timeEntry?.startDate != nil ? .red : .accentColor)
+//                    Image(systemName: viewModel.taskRunning ? "stop.circle.fill" : "play.circle.fill")
+//                        .resizable(resizingMode: .stretch)
+//                        .frame(width: 44.0, height: 44.0)
+//                        .foregroundColor(viewModel.taskRunning ? .red : .accentColor)
                 })
             }
         }
@@ -87,7 +99,6 @@ struct TaskTimerCellView: View {
         .sheet(isPresented: $showingEditTaskSheet) {
             NavigationView {
                 ModifyTaskView(task: task)
-                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
     }
@@ -128,7 +139,7 @@ struct TaskView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        TaskTimerCellView(task: task)
+        TaskCellView(task: task)
             .previewLayout(.sizeThatFits)
     }
 }

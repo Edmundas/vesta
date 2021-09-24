@@ -9,25 +9,15 @@ import SwiftUI
 
 struct ModifyTaskView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest(
-        entity: CDTask.entity(),
-        sortDescriptors: []
-    ) var tasks: FetchedResults<CDTask>
+    @StateObject private var viewModel = ModifyTaskViewModel()
     
-    @State var task: CDTask?
-    @State private var taskTitle = ""
-    
-    init(task: CDTask? = nil) {
-        _task = State(initialValue: task)
-        _taskTitle = State(initialValue: task?.title ?? "")
-    }
+    var task: CDTask?
     
     var body: some View {
         List {
-            TextField("Title", text: $taskTitle)
-                .modifier(ClearButton(text: $taskTitle))
+            TextField("Title", text: $viewModel.title)
+                .modifier(ClearButton(text: $viewModel.title))
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Task")
@@ -36,25 +26,21 @@ struct ModifyTaskView: View {
                 presentationMode.wrappedValue.dismiss()
             },
             trailing: Button("Save") {
-                if let existingTask = task {
-                    existingTask.title = taskTitle
-                } else {
-                    let task = CDTask(context: managedObjectContext)
-                    task.title = taskTitle
-                    task.userOrder = Int16(tasks.count + 1)
-                }
-                
-                do {
-                    try managedObjectContext.save()
-                } catch {
-                    // TODO: CoreData - Handle save error
-                    fatalError("Unresolved error: \(error)")
-                }
-                
+                viewModel.save()
                 presentationMode.wrappedValue.dismiss()
             }
-            .disabled(taskTitle.isEmpty)
+            .disabled(viewModel.title.isEmpty)
         )
+        .onAppear(perform: prepareViewModel)
+    }
+}
+
+extension ModifyTaskView {
+    private func prepareViewModel() {
+        if task != nil {
+            viewModel.task = task!
+            viewModel.title = task!.title
+        }
     }
 }
 

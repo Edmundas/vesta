@@ -13,6 +13,8 @@ struct TasksView: View {
     @FetchRequest(fetchRequest: CDTask.fetchRequest())
     private var tasks: FetchedResults<CDTask>
     
+    @StateObject private var viewModel = TasksViewModel()
+    
     @State private var editMode: EditMode = .inactive
     @State private var showingAddTaskSheet = false
     
@@ -22,44 +24,12 @@ struct TasksView: View {
                 Label("The list is empty", systemImage: "exclamationmark.circle")
             }
             ForEach(tasks) { task in
-                TaskTimerCellView(task: task)
+                TaskCellView(task: task)
                     .environment(\.editMode, $editMode)
                     .deleteDisabled(editMode != .active)
             }
-            .onMove(perform: { from, to in
-                var revisedTasks: [CDTask] = tasks.map { $0 }
-                revisedTasks.move(fromOffsets: from, toOffset: to)
-                
-                for reverseIndex in stride(from: revisedTasks.count - 1,
-                                           through: 0,
-                                           by: -1) {
-                    revisedTasks[reverseIndex].userOrder = Int16(reverseIndex + 1)
-                }
-                
-                if managedObjectContext.hasChanges {
-                    do {
-                        try managedObjectContext.save()
-                    } catch {
-                        // TODO: CoreData - Handle save error
-                        fatalError("Unresolved error: \(error)")
-                    }
-                }
-            })
-            .onDelete(perform: { indexSet in
-                for index in indexSet {
-                    let task = tasks[index]
-                    managedObjectContext.delete(task)
-                }
-
-                if managedObjectContext.hasChanges {
-                    do {
-                        try managedObjectContext.save()
-                    } catch {
-                        // TODO: CoreData - Handle save error
-                        fatalError("Unresolved error: \(error)")
-                    }
-                }
-            })
+            .onMove(perform: moveTask)
+            .onDelete(perform: deleteTask)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Tasks")
@@ -70,8 +40,25 @@ struct TasksView: View {
         .sheet(isPresented: $showingAddTaskSheet) {
             NavigationView {
                 ModifyTaskView()
-                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
+        }
+    }
+}
+
+extension TasksView {
+    private func moveTask(from source: IndexSet, to destination: Int) {
+        var revisedTasks: [CDTask] = tasks.map { $0 }
+        revisedTasks.move(fromOffsets: source, toOffset: destination)
+        
+        // update order in data model
+        for reverseIndex in stride(from: revisedTasks.count - 1, through: 0, by: -1) {
+            viewModel.reorder(task: revisedTasks[reverseIndex], userOrder: reverseIndex + 1)
+        }
+    }
+    
+    private func deleteTask(indexSet: IndexSet) {
+        for index in indexSet {
+            viewModel.delete(task: tasks[index])
         }
     }
 }
