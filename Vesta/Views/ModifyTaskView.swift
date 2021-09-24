@@ -44,7 +44,12 @@ struct ModifyTaskView: View {
                     task.userOrder = Int16(tasks.count + 1)
                 }
                 
-                PersistenceController.shared.saveContext()
+                do {
+                    try managedObjectContext.save()
+                } catch {
+                    // TODO: CoreData - Handle save error
+                    fatalError("Unresolved error: \(error)")
+                }
                 
                 presentationMode.wrappedValue.dismiss()
             }

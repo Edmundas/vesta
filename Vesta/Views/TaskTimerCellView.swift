@@ -62,7 +62,12 @@ struct TaskTimerCellView: View {
                         startTimer()
                     }
                     
-                    PersistenceController.shared.saveContext()
+                    do {
+                        try managedObjectContext.save()
+                    } catch {
+                        // TODO: CoreData - Handle save error
+                        fatalError("Unresolved error: \(error)")
+                    }
                 }, label: {
                     Image(systemName: timeEntry?.startDate != nil ? "stop.circle.fill" : "play.circle.fill")
                         .resizable(resizingMode: .stretch)

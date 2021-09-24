@@ -20,6 +20,7 @@
 		1893441E26DCC81200604A00 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1893441D26DCC81200604A00 /* Preview Assets.xcassets */; };
 		1893442A26DCFAF200604A00 /* TaskTimerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442926DCFAF200604A00 /* TaskTimerCellView.swift */; };
 		1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893442E26DD271C00604A00 /* ModifyTaskView.swift */; };
+		18B10B9726FDB5E7003D5BA4 /* Persistence+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B10B9626FDB5E7003D5BA4 /* Persistence+Preview.swift */; };
 		18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18BE374B26E8F5860012176B /* Model.xcdatamodeld */; };
 		18BE379126E8FD430012176B /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BE379026E8FD430012176B /* CloudKit.framework */; };
 		18BE379326E8FE060012176B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE379226E8FE060012176B /* Persistence.swift */; };
@@ -43,6 +44,7 @@
 		1893441F26DCC81200604A00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1893442926DCFAF200604A00 /* TaskTimerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTimerCellView.swift; sourceTree = "<group>"; };
 		1893442E26DD271C00604A00 /* ModifyTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyTaskView.swift; sourceTree = "<group>"; };
+		18B10B9626FDB5E7003D5BA4 /* Persistence+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Persistence+Preview.swift"; sourceTree = "<group>"; };
 		18BE374C26E8F5860012176B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		18BE378E26E8FD3F0012176B /* Vesta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vesta.entitlements; sourceTree = "<group>"; };
 		18BE379026E8FD430012176B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -132,6 +134,7 @@
 			children = (
 				18BE374B26E8F5860012176B /* Model.xcdatamodeld */,
 				18BE379226E8FE060012176B /* Persistence.swift */,
+				18B10B9626FDB5E7003D5BA4 /* Persistence+Preview.swift */,
 				18E669CB26E9EC9B00D66B40 /* CDTask.swift */,
 				18E669C926E9EC9B00D66B40 /* CDTimeEntry.swift */,
 			);
@@ -221,6 +224,7 @@
 				1857E78B26E2072700E5EA00 /* TimeEntryCellView.swift in Sources */,
 				1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */,
 				18E669CD26E9EC9B00D66B40 /* CDTimeEntry.swift in Sources */,
+				18B10B9726FDB5E7003D5BA4 /* Persistence+Preview.swift in Sources */,
 				18BE374D26E8F5860012176B /* Model.xcdatamodeld in Sources */,
 				18BE379326E8FE060012176B /* Persistence.swift in Sources */,
 				1857E79226E2647100E5EA00 /* TimeEntriesView.swift in Sources */,

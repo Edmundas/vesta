@@ -9,14 +9,12 @@ import SwiftUI
 
 @main
 struct VestaApp: App {
-    @Environment(\.scenePhase) private var scenePhase
-    
     @State private var selection: Tab = .tasks
         
-        enum Tab {
-            case tasks
-            case timeEntries
-        }
+    enum Tab {
+        case tasks
+        case timeEntries
+    }
     
     let persistenceController = PersistenceController.shared
     
@@ -43,9 +41,6 @@ struct VestaApp: App {
                 }
                 .tag(Tab.timeEntries)
             }
-        }
-        .onChange(of: scenePhase) { _ in
-            persistenceController.saveContext()
         }
     }
 }

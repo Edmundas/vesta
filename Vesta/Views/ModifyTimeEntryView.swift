@@ -106,8 +106,13 @@ struct ModifyTimeEntryView: View {
                 if timeEntry.endDate != nil {
                     timeEntry.endDate = endDate
                 }
-
-                PersistenceController.shared.saveContext()
+                
+                do {
+                    try managedObjectContext.save()
+                } catch {
+                    // TODO: CoreData - Handle save error
+                    fatalError("Unresolved error: \(error)")
+                }
 
                 presentationMode.wrappedValue.dismiss()
             }

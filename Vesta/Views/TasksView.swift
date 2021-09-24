@@ -41,7 +41,14 @@ struct TasksView: View {
                     revisedTasks[reverseIndex].userOrder = Int16(reverseIndex + 1)
                 }
                 
-                PersistenceController.shared.saveContext()
+                if managedObjectContext.hasChanges {
+                    do {
+                        try managedObjectContext.save()
+                    } catch {
+                        // TODO: CoreData - Handle save error
+                        fatalError("Unresolved error: \(error)")
+                    }
+                }
             })
             .onDelete(perform: { indexSet in
                 for index in indexSet {
@@ -49,7 +56,14 @@ struct TasksView: View {
                     managedObjectContext.delete(task)
                 }
 
-                PersistenceController.shared.saveContext()
+                if managedObjectContext.hasChanges {
+                    do {
+                        try managedObjectContext.save()
+                    } catch {
+                        // TODO: CoreData - Handle save error
+                        fatalError("Unresolved error: \(error)")
+                    }
+                }
             })
         }
         .listStyle(InsetGroupedListStyle())
