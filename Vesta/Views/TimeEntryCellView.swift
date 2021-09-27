@@ -52,6 +52,8 @@ struct TimeEntryCellView: View {
     }
     
     private func formattedDate(timeEntry: CDTimeEntry) -> String {
+        guard !timeEntry.isFault else { return "-" }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd"
         
@@ -59,6 +61,8 @@ struct TimeEntryCellView: View {
     }
     
     private func formattedTimeInterval(timeEntry: CDTimeEntry) -> String {
+        guard !timeEntry.isFault else { return "-" }
+        
         var startTimeString = "-"
         var endTimeString = "-"
         
@@ -74,6 +78,8 @@ struct TimeEntryCellView: View {
     }
     
     private func formattedDuration(timeEntry: CDTimeEntry) -> String {
+        guard !timeEntry.isFault else { return "-" }
+        
         var durationString = "-"
         
         if let endDate = timeEntry.endDate {
