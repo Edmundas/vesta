@@ -14,7 +14,7 @@ final class TaskCellViewModel: ObservableObject {
     var task: CDTask? {
         didSet {
             if let newTask = task {
-                duration = durationForTask(newTask)
+                duration = durationForTask(newTask) + secondsElapsed
             } else {
                 duration = 0.0
             }
@@ -23,6 +23,7 @@ final class TaskCellViewModel: ObservableObject {
     
     private let dataManager: DataManagerProtocol
     private var taskTimer: TaskTimer?
+    private var secondsElapsed = 0.0
     
     init(dataManager: DataManagerProtocol = DataManager.shared) {
         self.dataManager = dataManager
@@ -52,12 +53,14 @@ final class TaskCellViewModel: ObservableObject {
     
     @objc private func timerFired() {
         duration += 1
+        secondsElapsed += 1
     }
     
     @objc private func timerEnded() {
         NotificationCenter.default.removeObserver(self)
         
         taskRunning = false
+        secondsElapsed = 0.0
     }
     
     private func durationForTask(_ task: CDTask) -> Double {
