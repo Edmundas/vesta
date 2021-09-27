@@ -32,6 +32,12 @@ extension CDTimeEntry {
         ]
         return request
     }
+    
+    @nonobjc public class func fetchRequestRunning() -> NSFetchRequest<CDTimeEntry> {
+        let request = NSFetchRequest<CDTimeEntry>(entityName: "CDTimeEntry")
+        request.predicate = NSPredicate(format: "endDate == %@", 0)
+        return request
+    }
 }
 
 extension CDTimeEntry : Identifiable { }

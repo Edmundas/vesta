@@ -11,17 +11,65 @@ final class TaskCellViewModel: ObservableObject {
     @Published var taskRunning = false
     @Published var duration = 0.0
     
+    var task: CDTask? {
+        didSet {
+            if let newTask = task {
+                duration = durationForTask(newTask)
+            } else {
+                duration = 0.0
+            }
+        }
+    }
+    
     private let dataManager: DataManagerProtocol
+    private var taskTimer: TaskTimer?
     
     init(dataManager: DataManagerProtocol = DataManager.shared) {
         self.dataManager = dataManager
     }
     
-    func start(task: CDTask) {
-        taskRunning = true
+    func startTask() {
+        if let currentTask = task {
+            dataManager.endRunningTimeEntry()
+            dataManager.createTimeEntry(task: currentTask)
+            
+            taskTimer = TaskTimer.shared
+            taskTimer!.start()
+            
+            let nc = NotificationCenter.default
+            nc.addObserver(self, selector: #selector(timerFired), name: Notification.Name("TimerFired"), object: nil)
+            nc.addObserver(self, selector: #selector(timerEnded), name: Notification.Name("TimerEnded"), object: nil)
+            
+            taskRunning = true
+        }
     }
     
-    func stop(task: CDTask) {
+    func stopTask() {
+        dataManager.endRunningTimeEntry()
+        
+        taskTimer!.stop()
+    }
+    
+    @objc private func timerFired() {
+        duration += 1
+    }
+    
+    @objc private func timerEnded() {
+        NotificationCenter.default.removeObserver(self)
+        
         taskRunning = false
+    }
+    
+    private func durationForTask(_ task: CDTask) -> Double {
+        var dur = 0.0
+        
+        for timeEntry in task.timeEntries ?? Set<CDTimeEntry>() {
+            if let endDate = timeEntry.endDate {
+                let durInterval = DateInterval(start: timeEntry.startDate, end: endDate)
+                dur += durInterval.duration
+            }
+        }
+        
+        return dur
     }
 }

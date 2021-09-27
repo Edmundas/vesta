@@ -8,22 +8,11 @@
 import SwiftUI
 
 struct TaskCellView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.editMode) var editMode
-    
-    @FetchRequest(
-        entity: CDTimeEntry.entity(),
-        sortDescriptors: [],
-        predicate: NSPredicate(format: "endDate == %@", 0)
-    ) var activeTimeEntries: FetchedResults<CDTimeEntry>
     
     @ObservedObject var task: CDTask
     
     @StateObject private var viewModel = TaskCellViewModel()
-    
-    @State private var timeEntry: CDTimeEntry?
-    @State private var timer: Timer?
-    @State private var secondsElapsed = 0.0
     @State private var showingEditTaskSheet = false
     
     var body: some View {
@@ -33,7 +22,7 @@ struct TaskCellView: View {
                     .font(.headline)
                     .padding(.bottom, 2.0)
                 
-                Text(DataFormatter.formattedDuration(duration: duration(timeEntries: task.timeEntries) + secondsElapsed))
+                Text(DataFormatter.formattedDuration(duration: viewModel.duration))
                     .font(.subheadline)
             }
             Spacer()
@@ -47,85 +36,32 @@ struct TaskCellView: View {
                 .buttonStyle(PlainButtonStyle())
             } else {
                 Button(action: {
-//                    if viewModel.taskRunning {
-//                        viewModel.stop(task: task)
-//                    } else {
-//                        viewModel.start(task: task)
-//                    }
-                    
-                    if timeEntry != nil && timeEntry!.endDate == nil {
-                        stopTimer()
-                        
-                        timeEntry!.endDate = Date()
-                        timeEntry = nil
+                    if viewModel.taskRunning {
+                        viewModel.stopTask()
                     } else {
-                        timeEntry = CDTimeEntry(context: managedObjectContext)
-                        timeEntry!.task = task
-                        
-                        // Stop any running time entry
-                        for activeTimeEntry in activeTimeEntries {
-                            activeTimeEntry.endDate = timeEntry!.startDate
-                        }
-                        
-                        startTimer()
-                    }
-                    
-                    do {
-                        try managedObjectContext.save()
-                    } catch {
-                        // TODO: CoreData - Handle save error
-                        fatalError("Unresolved error: \(error)")
+                        viewModel.startTask()
                     }
                 }, label: {
-                    Image(systemName: timeEntry?.startDate != nil ? "stop.circle.fill" : "play.circle.fill")
+                    Image(systemName: viewModel.taskRunning ? "stop.circle.fill" : "play.circle.fill")
                         .resizable(resizingMode: .stretch)
                         .frame(width: 44.0, height: 44.0)
-                        .foregroundColor(timeEntry?.startDate != nil ? .red : .accentColor)
-//                    Image(systemName: viewModel.taskRunning ? "stop.circle.fill" : "play.circle.fill")
-//                        .resizable(resizingMode: .stretch)
-//                        .frame(width: 44.0, height: 44.0)
-//                        .foregroundColor(viewModel.taskRunning ? .red : .accentColor)
+                        .foregroundColor(viewModel.taskRunning ? .red : .accentColor)
                 })
             }
         }
         .padding(.vertical)
-        .onChange(of: timeEntry?.endDate) { date in
-            if date != nil {
-                stopTimer()
-                
-                timeEntry = nil
-            }
-        }
+        .onAppear(perform: prepareViewModel)
         .sheet(isPresented: $showingEditTaskSheet) {
             NavigationView {
                 ModifyTaskView(task: task)
             }
         }
     }
-    
-    private func duration(timeEntries: Set<CDTimeEntry>?) -> Double {
-        var dur = 0.0
-        
-        for timeEntry in timeEntries ?? Set<CDTimeEntry>() {
-            if let endDate = timeEntry.endDate {
-                let durInterval = DateInterval(start: timeEntry.startDate, end: endDate)
-                dur += durInterval.duration
-            }
-        }
-        
-        return dur
-    }
-    
-    private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            secondsElapsed += 1
-        })
-    }
-    
-    private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-        secondsElapsed = 0.0
+}
+
+extension TaskCellView {
+    private func prepareViewModel() {
+        viewModel.task = task
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EE25026E60D24002BAB1A /* DataFormatter.swift */; };
+		182533B02701ADB500C1D253 /* TaskTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182533AF2701ADB500C1D253 /* TaskTimer.swift */; };
 		1857E78926E1F5B100E5EA00 /* ModifyTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78826E1F5B100E5EA00 /* ModifyTimeEntryView.swift */; };
 		1857E78B26E2072700E5EA00 /* TimeEntryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78A26E2072700E5EA00 /* TimeEntryCellView.swift */; };
 		1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78D26E2384600E5EA00 /* ClearButton.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		181EE25026E60D24002BAB1A /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
+		182533AF2701ADB500C1D253 /* TaskTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTimer.swift; sourceTree = "<group>"; };
 		1857E78826E1F5B100E5EA00 /* ModifyTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyTimeEntryView.swift; sourceTree = "<group>"; };
 		1857E78A26E2072700E5EA00 /* TimeEntryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryCellView.swift; sourceTree = "<group>"; };
 		1857E78D26E2384600E5EA00 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				181EE25026E60D24002BAB1A /* DataFormatter.swift */,
 				1857E78D26E2384600E5EA00 /* ClearButton.swift */,
+				182533AF2701ADB500C1D253 /* TaskTimer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -127,12 +130,12 @@
 			children = (
 				1893441826DCC81000604A00 /* TasksView.swift */,
 				18B10BA026FE067E003D5BA4 /* TasksViewModel.swift */,
-				1857E79126E2647100E5EA00 /* TimeEntriesView.swift */,
 				1893442E26DD271C00604A00 /* ModifyTaskView.swift */,
 				18B10B9E26FDCBE7003D5BA4 /* ModifyTaskViewModel.swift */,
-				1857E78826E1F5B100E5EA00 /* ModifyTimeEntryView.swift */,
 				1893442926DCFAF200604A00 /* TaskCellView.swift */,
 				18B10BA226FE137E003D5BA4 /* TaskCellViewModel.swift */,
+				1857E79126E2647100E5EA00 /* TimeEntriesView.swift */,
+				1857E78826E1F5B100E5EA00 /* ModifyTimeEntryView.swift */,
 				1857E78A26E2072700E5EA00 /* TimeEntryCellView.swift */,
 			);
 			path = Views;
@@ -248,6 +251,7 @@
 				1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */,
 				18E669CF26E9EC9B00D66B40 /* CDTask.swift in Sources */,
 				18B10B9D26FDC8E9003D5BA4 /* DataManager+TimeEntry.swift in Sources */,
+				182533B02701ADB500C1D253 /* TaskTimer.swift in Sources */,
 				1893441726DCC81000604A00 /* VestaApp.swift in Sources */,
 				1893442A26DCFAF200604A00 /* TaskCellView.swift in Sources */,
 			);
