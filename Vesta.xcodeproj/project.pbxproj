@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		181EE25126E60D24002BAB1A /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181EE25026E60D24002BAB1A /* DataFormatter.swift */; };
 		182533B02701ADB500C1D253 /* TaskTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182533AF2701ADB500C1D253 /* TaskTimer.swift */; };
+		182533B22701FEEF00C1D253 /* TimeEntriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182533B12701FEEF00C1D253 /* TimeEntriesViewModel.swift */; };
 		1857E78926E1F5B100E5EA00 /* ModifyTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78826E1F5B100E5EA00 /* ModifyTimeEntryView.swift */; };
 		1857E78B26E2072700E5EA00 /* TimeEntryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78A26E2072700E5EA00 /* TimeEntryCellView.swift */; };
 		1857E78E26E2384600E5EA00 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E78D26E2384600E5EA00 /* ClearButton.swift */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		181EE25026E60D24002BAB1A /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
 		182533AF2701ADB500C1D253 /* TaskTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTimer.swift; sourceTree = "<group>"; };
+		182533B12701FEEF00C1D253 /* TimeEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntriesViewModel.swift; sourceTree = "<group>"; };
 		1857E78826E1F5B100E5EA00 /* ModifyTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyTimeEntryView.swift; sourceTree = "<group>"; };
 		1857E78A26E2072700E5EA00 /* TimeEntryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryCellView.swift; sourceTree = "<group>"; };
 		1857E78D26E2384600E5EA00 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
@@ -78,9 +80,9 @@
 		1857E78C26E2382F00E5EA00 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				182533AF2701ADB500C1D253 /* TaskTimer.swift */,
 				181EE25026E60D24002BAB1A /* DataFormatter.swift */,
 				1857E78D26E2384600E5EA00 /* ClearButton.swift */,
-				182533AF2701ADB500C1D253 /* TaskTimer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -135,6 +137,7 @@
 				1893442926DCFAF200604A00 /* TaskCellView.swift */,
 				18B10BA226FE137E003D5BA4 /* TaskCellViewModel.swift */,
 				1857E79126E2647100E5EA00 /* TimeEntriesView.swift */,
+				182533B12701FEEF00C1D253 /* TimeEntriesViewModel.swift */,
 				1857E78826E1F5B100E5EA00 /* ModifyTimeEntryView.swift */,
 				1857E78A26E2072700E5EA00 /* TimeEntryCellView.swift */,
 			);
@@ -239,6 +242,7 @@
 				1857E78B26E2072700E5EA00 /* TimeEntryCellView.swift in Sources */,
 				18B10B9B26FDC8D8003D5BA4 /* DataManager+Task.swift in Sources */,
 				1893442F26DD271C00604A00 /* ModifyTaskView.swift in Sources */,
+				182533B22701FEEF00C1D253 /* TimeEntriesViewModel.swift in Sources */,
 				18E669CD26E9EC9B00D66B40 /* CDTimeEntry.swift in Sources */,
 				18B10B9F26FDCBE7003D5BA4 /* ModifyTaskViewModel.swift in Sources */,
 				18B10B9726FDB5E7003D5BA4 /* Persistence+Preview.swift in Sources */,

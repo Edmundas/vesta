@@ -13,6 +13,8 @@ struct TimeEntriesView: View {
     @FetchRequest(fetchRequest: CDTimeEntry.fetchRequest())
     private var timeEntries: FetchedResults<CDTimeEntry>
     
+    @StateObject private var viewModel = TimeEntriesViewModel()
+    
     var body: some View {
         List {
             if timeEntries.isEmpty {
@@ -21,24 +23,18 @@ struct TimeEntriesView: View {
             ForEach (timeEntries) { timeEntry in
                 TimeEntryCellView(task: timeEntry.task ?? CDTask(context: managedObjectContext), timeEntry: timeEntry)
             }
-            .onDelete(perform: { indexSet in
-                for index in indexSet {
-                    let timeEntry = timeEntries[index]
-                    managedObjectContext.delete(timeEntry)
-                }
-                
-                if managedObjectContext.hasChanges {
-                    do {
-                        try managedObjectContext.save()
-                    } catch {
-                        // TODO: CoreData - Handle save error
-                        fatalError("Unresolved error: \(error)")
-                    }
-                }
-            })
+            .onDelete(perform: deleteTimeEntry)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Entries")
+    }
+}
+
+extension TimeEntriesView {
+    private func deleteTimeEntry(indexSet: IndexSet) {
+        for index in indexSet {
+            viewModel.delete(timeEntry: timeEntries[index])
+        }
     }
 }
 

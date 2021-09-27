@@ -10,6 +10,7 @@ import CoreData
 
 protocol TimeEntryDataManagerProtocol {
     func createTimeEntry(task: CDTask)
+    func deleteTimeEntry(_ timeEntry: CDTimeEntry)
     func endRunningTimeEntry()
 }
 
@@ -20,6 +21,19 @@ extension DataManager: TimeEntryDataManagerProtocol {
             do {
                 let timeEntry = CDTimeEntry(context: context)
                 timeEntry.task = task
+                
+                try context.save()
+            } catch {
+                // TODO: CoreData - Handle error
+                fatalError("Unresolved error: \(error)")
+            }
+        }
+    }
+    
+    func deleteTimeEntry(_ timeEntry: CDTimeEntry) {
+        context.performAndWait {
+            do {
+                context.delete(timeEntry)
                 
                 try context.save()
             } catch {
