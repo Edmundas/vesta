@@ -42,6 +42,7 @@ struct TimeEntryCellView: View {
                     .foregroundColor(.accentColor)
             })
             .buttonStyle(PlainButtonStyle())
+            .disabled(timeEntry.endDate == nil)
         }
         .sheet(isPresented: $showingEditTimeEntrySheet) {
             NavigationView {
@@ -49,6 +50,7 @@ struct TimeEntryCellView: View {
                     .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
+        .deleteDisabled(timeEntry.endDate == nil)
     }
     
     private func formattedDate(timeEntry: CDTimeEntry) -> String {
