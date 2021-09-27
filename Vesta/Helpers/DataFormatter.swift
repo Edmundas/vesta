@@ -13,6 +13,13 @@ struct DataFormatter {
         let m = Int(duration) / 60
         let h = Int(duration) / 3600
         
-        return String(format:"%02d:%02d:%02d", h, m, s)
+        let dateFormatter = DateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("HHmmss")
+
+        let calendar = Calendar.current
+        let dateComponents = DateComponents(calendar: calendar, hour: h, minute: m, second: s)
+
+        guard let date = dateComponents.date else { return "" }
+        return dateFormatter.string(from: date)
     }
 }
