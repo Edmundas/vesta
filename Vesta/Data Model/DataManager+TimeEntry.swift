@@ -10,8 +10,15 @@ import CoreData
 
 protocol TimeEntryDataManagerProtocol {
     func createTimeEntry(task: CDTask)
+    func updateTimeEntry(_ timeEntry: CDTimeEntry, startDate: Date?, endDate: Date?)
     func deleteTimeEntry(_ timeEntry: CDTimeEntry)
     func endRunningTimeEntry()
+}
+
+extension TimeEntryDataManagerProtocol {
+    func updateTimeEntry(_ timeEntry: CDTimeEntry, startDate: Date? = nil, endDate: Date? = nil) {
+        updateTimeEntry(timeEntry, startDate: startDate, endDate: endDate)
+    }
 }
 
 // MARK: - TimeEntryDataManagerProtocol
@@ -23,6 +30,26 @@ extension DataManager: TimeEntryDataManagerProtocol {
                 timeEntry.task = task
                 
                 try context.save()
+            } catch {
+                // TODO: CoreData - Handle error
+                fatalError("Unresolved error: \(error)")
+            }
+        }
+    }
+    
+    func updateTimeEntry(_ timeEntry: CDTimeEntry, startDate: Date?, endDate: Date?) {
+        context.performAndWait {
+            do {
+                if let newStartDate = startDate {
+                    timeEntry.startDate = newStartDate
+                }
+                if let newEndDate = endDate {
+                    timeEntry.endDate = newEndDate
+                }
+                
+                if context.hasChanges {
+                    try context.save()
+                }
             } catch {
                 // TODO: CoreData - Handle error
                 fatalError("Unresolved error: \(error)")

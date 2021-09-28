@@ -29,7 +29,7 @@ struct TimeEntryCellView: View {
                         Text(" | ")
                     }
                     .foregroundColor(.secondary)
-                    Text(formattedDuration(timeEntry: timeEntry))
+                    Text(timeEntry.isFault ? "-" : DataFormatter.formattedDuration(startDate: timeEntry.startDate, endDate: timeEntry.endDate))
                 }
                 .font(.subheadline)
                 .padding(.bottom, 2.0)
@@ -77,19 +77,6 @@ struct TimeEntryCellView: View {
         }
         
         return "\(startTimeString) - \(endTimeString)"
-    }
-    
-    private func formattedDuration(timeEntry: CDTimeEntry) -> String {
-        guard !timeEntry.isFault else { return "-" }
-        
-        var durationString = "-"
-        
-        if let endDate = timeEntry.endDate {
-            let dateInterval = DateInterval(start: timeEntry.startDate, end: endDate)
-            durationString = DataFormatter.formattedDuration(duration: dateInterval.duration)
-        }
-        
-        return durationString
     }
 }
 

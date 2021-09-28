@@ -9,20 +9,10 @@ import SwiftUI
 
 struct ModifyTimeEntryView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var managedObjectContext
     
-    @State var timeEntry: CDTimeEntry
+    @StateObject private var viewModel = ModifyTimeEntryViewModel()
     
-    @State private var startDate = Date()
-    @State private var endDate = Date()
-    
-    init(timeEntry: CDTimeEntry) {
-        _timeEntry = State(initialValue: timeEntry)
-        _startDate = State(initialValue: timeEntry.startDate)
-        if let eDate = timeEntry.endDate {
-            _endDate = State(initialValue: eDate)
-        }
-    }
+    var timeEntry: CDTimeEntry
     
     var body: some View {
         List {
@@ -36,7 +26,8 @@ struct ModifyTimeEntryView: View {
                 }
             }
             DatePicker(
-                selection: $startDate,
+                selection: $viewModel.startDate,
+                in: ...viewModel.endDate,
                 displayedComponents: [.hourAndMinute]
             ) {
                 Text("Start Date")
@@ -44,7 +35,8 @@ struct ModifyTimeEntryView: View {
             }
             if timeEntry.endDate != nil {
                 DatePicker(
-                    selection: $endDate,
+                    selection: $viewModel.endDate,
+                    in: viewModel.startDate...,
                     displayedComponents: [.hourAndMinute]
                 ) {
                     Text("End Date")
@@ -55,43 +47,19 @@ struct ModifyTimeEntryView: View {
                     Text("End Date")
                         .foregroundColor(.secondary)
                     Spacer()
-                    Text("--:--")
+                    Text("-")
                 }
             }
             HStack {
                 Text("Duration")
                     .foregroundColor(.secondary)
                 Spacer()
-                if timeEntry.endDate != nil && startDate < endDate {
-                    Text(formattedDuration(startDate: startDate, endDate: endDate))
+                if timeEntry.endDate != nil {
+                    Text(DataFormatter.formattedDuration(startDate: viewModel.startDate, endDate: viewModel.endDate))
                         .foregroundColor(.secondary)
                 } else {
-                    Text("--:--:--")
+                    Text("-")
                         .foregroundColor(.secondary)
-                }
-            }
-            .onChange(of: startDate) { newValue in
-                let calendar = Calendar.current
-                let newComponents = calendar.dateComponents([.hour, .minute], from: newValue)
-                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: timeEntry.startDate)
-                
-                oldComponents.hour = newComponents.hour
-                oldComponents.minute = newComponents.minute
-                
-                if let newDate = calendar.date(from: oldComponents) {
-                    startDate = newDate
-                }
-            }
-            .onChange(of: endDate) { newValue in
-                let calendar = Calendar.current
-                let newComponents = calendar.dateComponents([.hour, .minute], from: newValue)
-                var oldComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .nanosecond], from: timeEntry.endDate!)
-                
-                oldComponents.hour = newComponents.hour
-                oldComponents.minute = newComponents.minute
-                
-                if let newDate = calendar.date(from: oldComponents) {
-                    endDate = newDate
                 }
             }
         }
@@ -102,28 +70,17 @@ struct ModifyTimeEntryView: View {
                 presentationMode.wrappedValue.dismiss()
             },
             trailing: Button("Save") {
-                timeEntry.startDate = startDate
-                if timeEntry.endDate != nil {
-                    timeEntry.endDate = endDate
-                }
-                
-                do {
-                    try managedObjectContext.save()
-                } catch {
-                    // TODO: CoreData - Handle save error
-                    fatalError("Unresolved error: \(error)")
-                }
-
+                viewModel.save()
                 presentationMode.wrappedValue.dismiss()
             }
         )
+        .onAppear(perform: prepareViewModel)
     }
-    
-    private func formattedDuration(startDate: Date, endDate: Date) -> String {
-        let dateInterval = DateInterval(start: startDate, end: endDate)
-        let durationString = DataFormatter.formattedDuration(duration: dateInterval.duration)
-        
-        return durationString
+}
+
+extension ModifyTimeEntryView {
+    private func prepareViewModel() {
+        viewModel.timeEntry = timeEntry
     }
 }
 
