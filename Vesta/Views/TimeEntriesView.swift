@@ -21,7 +21,7 @@ struct TimeEntriesView: View {
                 Label("The list is empty", systemImage: "exclamationmark.circle")
             }
             ForEach (timeEntries) { timeEntry in
-                TimeEntryCellView(task: timeEntry.task ?? CDTask(context: managedObjectContext), timeEntry: timeEntry)
+                TimeEntryCellView(timeEntry: timeEntry)
             }
             .onDelete(perform: deleteTimeEntry)
         }

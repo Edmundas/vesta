@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct TimeEntryCellView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    
-    @ObservedObject var task: CDTask
     @ObservedObject var timeEntry: CDTimeEntry
     
     @State private var showingEditTimeEntrySheet = false
@@ -18,18 +15,24 @@ struct TimeEntryCellView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(task.title)
+                Text(timeEntry.task?.title ?? "")
                     .font(.headline)
                     .padding(.vertical, 4.0)
                 HStack {
                     Group {
-                        Text(formattedDate(timeEntry: timeEntry))
+                        Text(timeEntry.isFault
+                             ? "-"
+                             : DataFormatter.formattedMonthDay(date: timeEntry.startDate))
                         Text(" | ")
-                        Text(formattedTimeInterval(timeEntry: timeEntry))
+                        Text(timeEntry.isFault || timeEntry.endDate == nil
+                             ? "-"
+                             : DataFormatter.formattedTimeInterval(startDate: timeEntry.startDate, endDate: timeEntry.endDate!))
                         Text(" | ")
                     }
                     .foregroundColor(.secondary)
-                    Text(timeEntry.isFault ? "-" : DataFormatter.formattedDuration(startDate: timeEntry.startDate, endDate: timeEntry.endDate))
+                    Text(timeEntry.isFault || timeEntry.endDate == nil
+                         ? "-"
+                         : DataFormatter.formattedDuration(startDate: timeEntry.startDate, endDate: timeEntry.endDate!))
                 }
                 .font(.subheadline)
                 .padding(.bottom, 2.0)
@@ -47,36 +50,9 @@ struct TimeEntryCellView: View {
         .sheet(isPresented: $showingEditTimeEntrySheet) {
             NavigationView {
                 ModifyTimeEntryView(timeEntry: timeEntry)
-                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
         .deleteDisabled(timeEntry.endDate == nil)
-    }
-    
-    private func formattedDate(timeEntry: CDTimeEntry) -> String {
-        guard !timeEntry.isFault else { return "-" }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd"
-        
-        return dateFormatter.string(from: timeEntry.startDate)
-    }
-    
-    private func formattedTimeInterval(timeEntry: CDTimeEntry) -> String {
-        guard !timeEntry.isFault else { return "-" }
-        
-        var startTimeString = "-"
-        var endTimeString = "-"
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
-        
-        startTimeString = dateFormatter.string(from: timeEntry.startDate)
-        if let endDate = timeEntry.endDate {
-            endTimeString = dateFormatter.string(from: endDate)
-        }
-        
-        return "\(startTimeString) - \(endTimeString)"
     }
 }
 
@@ -99,7 +75,7 @@ struct DateIntervalCellView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        TimeEntryCellView(task: task, timeEntry: timeEntry)
+        TimeEntryCellView(timeEntry: timeEntry)
             .previewLayout(.sizeThatFits)
     }
 }
