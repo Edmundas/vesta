@@ -14,6 +14,23 @@ final class TaskCellViewModel: ObservableObject {
     var task: CDTask? {
         didSet {
             if let newTask = task {
+                if !taskRunning {
+                    for timeEntry in newTask.timeEntries ?? Set<CDTimeEntry>() {
+                        if timeEntry.endDate == nil {
+                            secondsElapsed = DateInterval(start: timeEntry.startDate, end: Date()).duration
+                            
+                            taskTimer = TaskTimer.shared
+                            taskTimer!.start()
+                            
+                            let nc = NotificationCenter.default
+                            nc.addObserver(self, selector: #selector(timerFired), name: Notification.Name("TimerFired"), object: nil)
+                            nc.addObserver(self, selector: #selector(timerEnded), name: Notification.Name("TimerEnded"), object: nil)
+                            
+                            taskRunning = true
+                        }
+                    }
+                }
+                
                 duration = durationForTask(newTask) + secondsElapsed
             } else {
                 duration = 0.0
