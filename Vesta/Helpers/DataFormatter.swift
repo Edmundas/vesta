@@ -18,9 +18,11 @@ struct DataFormatter {
     }
     
     static func formattedDuration(duration: Double) -> String {
-        let s = Int(duration) % 60
-        let m = Int(duration) / 60
-        let h = Int(duration) / 3600
+        let durationToFormat = duration < 0 ? 0 : duration
+        
+        let s = Int(durationToFormat) % 60
+        let m = Int(durationToFormat) / 60
+        let h = Int(durationToFormat) / 3600
         
         let dateFormatter = DateFormatter()
         dateFormatter.setLocalizedDateFormatFromTemplate("HHmmss")
@@ -39,7 +41,7 @@ struct DataFormatter {
         return dateFormatter.string(from: date)
     }
     
-    static func formatterHourMinute(date: Date) -> String {
+    static func formattedHourMinute(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.setLocalizedDateFormatFromTemplate("HHmm")
         
