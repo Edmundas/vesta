@@ -29,6 +29,21 @@ final class TaskCellViewModel: ObservableObject {
                             taskRunning = true
                         }
                     }
+                    
+//                    (newTask.timeEntries ?? Set<CDTimeEntry>())
+//                        .filter { $0.endDate == nil }
+//                        .forEach {
+//                            secondsElapsed = DateInterval(start: $0.startDate, end: Date()).duration
+//                            
+//                            taskTimer = TaskTimer.shared
+//                            taskTimer!.start()
+//                            
+//                            let nc = NotificationCenter.default
+//                            nc.addObserver(self, selector: #selector(timerFired), name: Notification.Name("TimerFired"), object: nil)
+//                            nc.addObserver(self, selector: #selector(timerEnded), name: Notification.Name("TimerEnded"), object: nil)
+//                            
+//                            taskRunning = true
+//                        }
                 }
                 
                 duration = durationForTask(newTask) + secondsElapsed
@@ -82,14 +97,18 @@ final class TaskCellViewModel: ObservableObject {
     
     private func durationForTask(_ task: CDTask) -> Double {
         var dur = 0.0
-        
+
         for timeEntry in task.timeEntries ?? Set<CDTimeEntry>() {
             if let endDate = timeEntry.endDate {
                 let durInterval = DateInterval(start: timeEntry.startDate, end: endDate)
                 dur += durInterval.duration
             }
         }
-        
+
         return dur
+        
+//        return (task.timeEntries ?? Set<CDTimeEntry>())
+//            .filter { $0.endDate != nil }
+//            .reduce(0.0) { $0 + DateInterval(start: $1.startDate, end: $1.endDate!).duration }
     }
 }
